@@ -7,6 +7,16 @@
     <div class="col-12">
       <form [formGroup]="form" class="d-flex flex-column align-items-center">
         <div class="mb-3 w-100">
+          <label for="name" class="form-label text-white">Name</label>
+          <input
+            type="name"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            aria-describedby="name"
+          />
+        </div>
+        <div class="mb-3 w-100">
           <label for="email" class="form-label text-white">Email</label>
           <input
             type="email"
@@ -14,6 +24,16 @@
             id="email"
             formControlName="email"
             aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="mb-3 w-100">
+          <label for="email" class="form-label text-white">Phone</label>
+          <input
+            type="phone"
+            class="form-control"
+            id="phone"
+            formControlName="phone"
+            aria-describedby="phone"
           />
         </div>
         <div class="mb-3 w-100">
@@ -31,11 +51,11 @@
             Confirmação da senha
           </label>
           <input
-            type="passwordConfirmation"
+            type="password"
             class="form-control"
-            id="passwordConfirmation"
-            formControlName="passwordConfirmation"
-            aria-describedby="passwordConfirmationHelp"
+            id="password_confirmation"
+            formControlName="password_confirmation"
+            aria-describedby="password_confirmationHelp"
           />
         </div>
       </form>
@@ -43,83 +63,81 @@
     <div class="col-12">
       <h3 class="text-white">Endereço</h3>
       <form [formGroup]="form" class="d-flex flex-column align-items-center">
-        <ng-container formGroupName="address">
-          <div class="mb-3 w-100">
-            <label for="address" class="form-label text-white"
-              >Escolha seu estado</label
-            >
-            <input
-              type="address"
-              class="form-control"
-              id="states_input"
-              formControlName="state"
-              aria-describedby="addressHelp"
-              list="states"
-            />
-            <datalist id="states">
-              <option *ngFor="let state of states" [value]="state.sigla">
-                {{ state.nome }}
-              </option>
-            </datalist>
-          </div>
-          <div class="mb-3 w-100">
-            <label for="address" class="form-label text-white"
-              >Escolha sua cidade</label
-            >
-            <input
-              type="city"
-              class="form-control"
-              id="city"
-              formControlName="city"
-              list="cities"
-              autocomplete="off"
-            />
-            <datalist id="cities">
-              <option *ngFor="let city of cities" [value]="city.nome">
-                {{ city.nome }}
-              </option>
-            </datalist>
-          </div>
-          <div class="mb-3 w-100">
-            <label for="neighborhood" class="form-label text-white"
-              >Bairro</label
-            >
-            <input
-              type="neighborhood"
-              class="form-control"
-              id="neighborhood"
-              formControlName="neighborhood"
-            />
-          </div>
-          <div class="mb-3 w-100">
-            <label for="neighborhood" class="form-label text-white">Rua</label>
-            <input
-              type="street"
-              class="form-control"
-              id="street"
-              formControlName="street"
-            />
-          </div>
-          <div class="mb-3 w-100">
-            <label for="neighborhood" class="form-label text-white"
-              >Número</label
-            >
-            <input
-              type="number"
-              class="form-control"
-              id="number"
-              formControlName="number"
-            />
-            <label for="neighborhood" class="form-label text-white">CEP</label>
-            <input
-              type="zipCode"
-              class="form-control"
-              id="zipCode"
-              formControlName="zipCode"
-            />
-          </div>
-        </ng-container>
-        <button type="submit" class="btn btn-primary w-75 mb-4">
+        <div class="mb-3 w-100">
+          <label for="address" class="form-label text-white"
+            >Escolha seu estado</label
+          >
+          <input
+            type="address"
+            class="form-control"
+            id="states_input"
+            formControlName="state"
+            aria-describedby="addressHelp"
+            list="states"
+          />
+          <datalist id="states">
+            <option *ngFor="let state of states" [value]="state.sigla">
+              {{ state.nome }}
+            </option>
+          </datalist>
+        </div>
+        <div class="mb-3 w-100">
+          <label for="address" class="form-label text-white"
+            >Escolha sua cidade</label
+          >
+          <input
+            type="city"
+            class="form-control"
+            id="city"
+            formControlName="city_id"
+            list="cities"
+            autocomplete="off"
+          />
+          <datalist id="cities">
+            <option *ngFor="let city of cities" [value]="city.id">
+              {{ city.nome }}
+            </option>
+          </datalist>
+        </div>
+        <div class="mb-3 w-100">
+          <label for="neighborhood" class="form-label text-white">Bairro</label>
+          <input
+            type="neighborhood"
+            class="form-control"
+            id="neighborhood"
+            formControlName="neighborhood"
+          />
+        </div>
+        <div class="mb-3 w-100">
+          <label for="neighborhood" class="form-label text-white">Rua</label>
+          <input
+            type="street"
+            class="form-control"
+            id="street"
+            formControlName="street"
+          />
+        </div>
+        <div class="mb-3 w-100">
+          <label for="neighborhood" class="form-label text-white">Número</label>
+          <input
+            type="number"
+            class="form-control"
+            id="number"
+            formControlName="number"
+          />
+          <label for="neighborhood" class="form-label text-white">CEP</label>
+          <input
+            type="zipCode"
+            class="form-control"
+            id="zipCode"
+            formControlName="cep"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary w-75 mb-4"
+          (click)="signup()"
+        >
           Cadastrar
         </button>
       </form>
