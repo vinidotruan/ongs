@@ -1,0 +1,18 @@
+.user-thumb {
+    border-radius: 100%;
+    background-color: #B0B369;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 3rem;
+        border-radius: 100%;
+    }
+}
+
+nav {
+    height: 8rem;
+}

@@ -1,9 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  font-family: 'Montserrat';
+}
 .bg-green {
-    background-color: #6CC4A1;
+  background-color: #9ed79a;
 }
 
 .rounded-top {
-    border-top-left-radius: 1rem !important;
-    border-top-right-radius: 1rem !important;
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 1rem !important;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 600;
 }

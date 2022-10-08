@@ -9,15 +9,27 @@ import { LoginComponent } from './login/login.component';
 import { LogoComponent } from './shared/components/logo/logo.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { NgHttpLoaderModule } from 'ng-http-loader';
+import { HomeComponent } from './home/home.component';
+import { AppointmentCreateComponent } from './appointments/appointment-create/appointment-create.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, LogoComponent, SignUpComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    LogoComponent,
+    SignUpComponent,
+    HeaderComponent,
+    HomeComponent,
+    AppointmentCreateComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgHttpLoaderModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

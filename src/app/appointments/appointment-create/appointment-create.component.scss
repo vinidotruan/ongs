@@ -1,0 +1,21 @@
+.content {
+    background-color: #5A8F7B;
+}
+
+.wrapper {
+    height: 100vh;
+    .container {
+        height: 50vh;
+        
+        .speciality-thumb {
+            min-width: 150px;
+            min-height: 150px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.432);
+            background-color: #355764;
+            span.material-symbols-outlined{
+                font-size: 4rem;
+
+            }
+        }
+    }
+}
