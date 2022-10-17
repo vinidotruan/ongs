@@ -1,29 +1,99 @@
 <div class="d-flex flex-column justify-content-between wrapper">
   <app-header></app-header>
   <div class="content text-white rounded-top py-5">
-    <h2 class="mx-2 my-2">O que você está procurando?</h2>
+    <form [formGroup]="form">
+      <div class="wrapper-step">
+        <h2 class="mx-2 my-2 text-center">O que você está procurando?</h2>
 
-    <div class="container pt-4">
-      <div class="row">
-        <div class="col-6">
-          <div
-            class="speciality-thumb d-flex flex-column justify-content-center align-items-center rounded"
-          >
-            <span class="material-symbols-outlined"> medical_services </span>
-            <span class="text-center"><b> Serviço veterinário</b></span>
-          </div>
-        </div>
-        <div class="col-6">
-          <div
-            class="speciality-thumb d-flex flex-column justify-content-center align-items-center rounded px-2"
-          >
-            <span class="material-symbols-outlined"> emergency </span>
-            <span class="text-center">
-              <b> Serviço veterinário emergêncial</b>
-            </span>
+        <div class="container pt-4">
+          <div class="row">
+            <div class="col-6">
+              <div
+                class="speciality-thumb d-flex flex-column justify-content-center align-items-center rounded"
+              >
+                <span class="material-symbols-outlined">
+                  medical_services
+                </span>
+                <span class="text-center"><b> Serviço veterinário</b></span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div
+                class="speciality-thumb d-flex flex-column justify-content-center align-items-center rounded px-2"
+              >
+                <span class="material-symbols-outlined"> emergency </span>
+                <span class="text-center">
+                  <b> Serviço veterinário emergêncial</b>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="wrapper-step">
+        <h2 class="mx-2 my-2 text-center">Qual a distância máxima desejada?</h2>
+
+        <div class="container pt-4">
+          <div class="row">
+            <div class="col-12">
+              <div class="mb-3 w-80 mx-auto">
+                <input
+                  type="range"
+                  class="form-range w-100"
+                  min="0"
+                  max="100"
+                  step="20"
+                  id="cities-range"
+                  name=""
+                  formControlName="max_distance"
+                />
+              </div>
+              <div class="steps-value d-flex justify-content-between">
+                <div
+                  class="number"
+                  [ngClass]="{ active: isActualMaxDistance(0) }"
+                >
+                  0 Km
+                </div>
+                <div
+                  class="number"
+                  [ngClass]="{ active: isActualMaxDistance(20) }"
+                >
+                  20 Km
+                </div>
+                <div
+                  class="number"
+                  [ngClass]="{ active: isActualMaxDistance(40) }"
+                >
+                  40 Km
+                </div>
+                <div
+                  class="number"
+                  [ngClass]="{ active: isActualMaxDistance(60) }"
+                >
+                  60 Km
+                </div>
+                <div
+                  class="number"
+                  [ngClass]="{ active: isActualMaxDistance(80) }"
+                >
+                  80 Km
+                </div>
+                <div
+                  class="number"
+                  [ngClass]="{ active: isActualMaxDistance(100) }"
+                >
+                  100 Km
+                </div>
+              </div>
+              {{ maxDistance }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{ form.value | json }}
+    </form>
   </div>
 </div>

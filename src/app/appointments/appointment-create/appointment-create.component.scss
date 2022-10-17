@@ -19,3 +19,10 @@
         }
     }
 }
+
+
+.number {
+    &.active {
+        color: blue
+    }
+}
