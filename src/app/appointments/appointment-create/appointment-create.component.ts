@@ -30,4 +30,8 @@ export class AppointmentCreateComponent implements OnInit {
 
   public isActualMaxDistance = (actualDistance: number): boolean =>
     this.maxDistance == actualDistance;
+
+  public dateClicked = (event: any) => {
+    console.log(event);
+  };
 }
