@@ -1,5 +1,6 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@shared/guard/auth.guard';
 import { AppointmentCreateComponent } from './appointments/appointment-create/appointment-create.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -21,6 +22,12 @@ const routes: Routes = [
   {
     path: 'appointments/new',
     component: AppointmentCreateComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
   },
 ];
 

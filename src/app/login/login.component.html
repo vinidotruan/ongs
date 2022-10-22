@@ -4,6 +4,10 @@
   </div>
   <div class="row bg-green rounded-top h-50">
     <h3 class="text-white align-self-center">Entrar</h3>
+    <ngb-alert type="danger" *ngIf="error">
+      {{ error.message }}
+    </ngb-alert>
+
     <div class="col-12">
       <form [formGroup]="form" class="d-flex flex-column align-items-center">
         <div class="mb-3 w-100">
@@ -26,7 +30,7 @@
             aria-describedby="passwordHelp"
           />
         </div>
-        <button type="submit" class="btn btn-primary w-75" routerLink="/home">
+        <button type="submit" class="btn btn-primary w-75" (click)="login()">
           Entrar
         </button>
         <span>

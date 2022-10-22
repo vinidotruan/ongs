@@ -7,23 +7,19 @@
 
         <div class="container pt-4 h-75">
           <div class="row">
-            <div class="col-6">
+            <div
+              class="col-6 my-2"
+              *ngFor="let speciality of specialities"
+              (click)="specialitySelected(speciality.id)"
+            >
               <div
                 class="speciality-thumb d-flex flex-column justify-content-center align-items-center rounded"
               >
                 <span class="material-symbols-outlined">
                   medical_services
                 </span>
-                <span class="text-center"><b> Serviço veterinário</b></span>
-              </div>
-            </div>
-            <div class="col-6">
-              <div
-                class="speciality-thumb d-flex flex-column justify-content-center align-items-center rounded px-2"
-              >
-                <span class="material-symbols-outlined"> emergency </span>
                 <span class="text-center">
-                  <b> Serviço veterinário emergêncial</b>
+                  <b> {{ speciality.name }}</b>
                 </span>
               </div>
             </div>
@@ -31,7 +27,7 @@
         </div>
       </div>
 
-      <div class="wrapper-step">
+      <div class="wrapper-step" *ngIf="false">
         <h2 class="mx-2 my-2 text-center">Qual a distância máxima desejada?</h2>
 
         <div class="container h-50 pt-4">
@@ -92,90 +88,33 @@
         </div>
       </div>
 
-      <div class="wrapper-step">
+      <div class="wrapper-step" *ngIf="ongs.length > 0">
         <h2 class="mx-2 my-2 text-center">
           Essas são as ongs que prestam esse serviço perto de você!
         </h2>
 
         <div class="container pt-4">
           <div class="row">
-            <div class="col-12 my-2">
+            <div
+              class="col-12 my-2"
+              *ngFor="let ong of ongs"
+              (click)="(ong?.id)"
+            >
               <div class="card border-none">
                 <div class="card-body">
                   <div class="card-title text-black">
-                    <h3>Organização Não Governamental 01</h3>
+                    <h3>{{ ong?.name }}</h3>
                   </div>
 
                   <h6
                     class="card-subtitle my-2 text-muted d-flex justify-content-start align-items-center"
                   >
                     <span class="material-symbols-outlined"> location_on </span>
-                    Rua fictícia, bairro fictício, número 33
+                    {{ ong.address?.street }}, {{ ong?.address?.neighborhood }},
+                    {{ ong?.address?.number }}
                   </h6>
 
-                  <button class="btn btn-primary mt-4 w-100">
-                    Ver Detalhes
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 my-2">
-              <div class="card border-none">
-                <div class="card-body">
-                  <div class="card-title text-black">
-                    <h3>Organização Não Governamental 01</h3>
-                  </div>
-
-                  <h6
-                    class="card-subtitle my-2 text-muted d-flex justify-content-start align-items-center"
-                  >
-                    <span class="material-symbols-outlined"> location_on </span>
-                    Rua fictícia, bairro fictício, número 33
-                  </h6>
-
-                  <button class="btn btn-primary mt-4 w-100">
-                    Ver Detalhes
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 my-2">
-              <div class="card border-none">
-                <div class="card-body">
-                  <div class="card-title text-black">
-                    <h3>Organização Não Governamental 01</h3>
-                  </div>
-
-                  <h6
-                    class="card-subtitle my-2 text-muted d-flex justify-content-start align-items-center"
-                  >
-                    <span class="material-symbols-outlined"> location_on </span>
-                    Rua fictícia, bairro fictício, número 33
-                  </h6>
-
-                  <button class="btn btn-primary mt-4 w-100">
-                    Ver Detalhes
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 my-2">
-              <div class="card border-none">
-                <div class="card-body">
-                  <div class="card-title text-black">
-                    <h3>Organização Não Governamental 01</h3>
-                  </div>
-
-                  <h6
-                    class="card-subtitle my-2 text-muted d-flex justify-content-start align-items-center"
-                  >
-                    <span class="material-symbols-outlined"> location_on </span>
-                    Rua fictícia, bairro fictício, número 33
-                  </h6>
-
-                  <button class="btn btn-primary mt-4 w-100">
-                    Ver Detalhes
-                  </button>
+                  <button class="btn btn-primary mt-4 w-100">Escolher</button>
                 </div>
               </div>
             </div>
@@ -183,19 +122,18 @@
         </div>
       </div>
 
-      <div class="wrapper-step">
+      <div class="wrapper-step" *ngIf="pets.length > 0">
         <h2 class="mx-2 my-2 text-center">Qual pet deseja levar</h2>
 
         <div class="container pt-4">
           <div class="mb-3 w-100">
-            <label for="email" class="form-label text-white"
-              >Escolha seu pet</label
-            >
+            <label for="email" class="form-label text-white">
+              Escolha seu pet
+            </label>
             <select class="form-select" aria-label="Default select example">
-              <option selected>Selecione seu pet</option>
-              <option value="1">Pet 01</option>
-              <option value="2">Pet 02</option>
-              <option value="3">Pet 03</option>
+              <option [value]="pet?.id" *ngFor="let pet of pets">
+                {{ pet?.name }}
+              </option>
             </select>
           </div>
           <div class="mb-3 w-100">
@@ -240,22 +178,21 @@
           <div class="row">
             <div class="col-12 d-flex justify-content-center">
               <!-- aceita form control -->
-              <ngb-datepicker #d (dateSelect)="dateClicked($event)"></ngb-datepicker>
-
+              <ngb-datepicker
+                #d
+                (dateSelect)="dateClicked($event)"
+              ></ngb-datepicker>
             </div>
           </div>
         </div>
       </div>
 
       <div class="container pt-4">
-      <div class="row d-flex justify-content-center">
-        <div class="col-6 d-flex justify-content-center">
-          <button class="btn btn-primary w-100">
-            Agendar
-          </button>
+        <div class="row d-flex justify-content-center">
+          <div class="col-6 d-flex justify-content-center">
+            <button class="btn btn-primary w-100">Agendar</button>
+          </div>
         </div>
-      </div>
-
       </div>
     </form>
   </div>
