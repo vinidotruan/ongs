@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,6 +12,11 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { HomeComponent } from './home/home.component';
 import { AppointmentCreateComponent } from './appointments/appointment-create/appointment-create.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
@@ -30,8 +35,9 @@ import { AppointmentCreateComponent } from './appointments/appointment-create/ap
     FormsModule,
     ReactiveFormsModule,
     NgHttpLoaderModule.forRoot(),
+    NgbModule,
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

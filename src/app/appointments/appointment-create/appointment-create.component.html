@@ -236,7 +236,26 @@
           </div>
         </div>
 
-        <div class="container pt-4"></div>
+        <div class="container pt-4">
+          <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+              <!-- aceita form control -->
+              <ngb-datepicker #d (dateSelect)="dateClicked($event)"></ngb-datepicker>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container pt-4">
+      <div class="row d-flex justify-content-center">
+        <div class="col-6 d-flex justify-content-center">
+          <button class="btn btn-primary w-100">
+            Agendar
+          </button>
+        </div>
+      </div>
+
       </div>
     </form>
   </div>
