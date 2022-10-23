@@ -1,26 +1,24 @@
+@import "../../../assets/styles/variables";
+
 .content {
-    background-color: #5A8F7B;
+  background-color: #5a8f7b;
 }
 
 .wrapper {
-    .container {
-        .speciality-thumb {
-            min-width: 150px;
-            min-height: 150px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.432);
-            background-color: #355764;
-            span.material-symbols-outlined{
-                font-size: 4rem;
-
-            }
-        }
+  .container {
+    .speciality-thumb {
+      min-width: 150px;
+      min-height: 150px;
+      background-color: $primary;
+      span.material-symbols-outlined {
+        font-size: 4rem;
+      }
     }
+  }
 }
-
 
 .number {
-    &.active {
-        color: #355764
-    }
+  &.active {
+    color: #355764;
+  }
 }
-

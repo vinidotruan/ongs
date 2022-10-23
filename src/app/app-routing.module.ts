@@ -10,24 +10,29 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    data: { animation: 'loginPage' },
   },
   {
     path: 'signup',
     component: SignUpComponent,
+    data: { animation: 'signupPage' },
   },
   {
     path: 'home',
     component: HomeComponent,
+    data: { animation: 'homePage' },
   },
   {
     path: 'appointments/new',
     component: AppointmentCreateComponent,
     canActivate: [AuthGuard],
+    data: { animation: 'newAppointmentPage' },
   },
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
+    data: { animation: 'loginPage' },
   },
 ];
 

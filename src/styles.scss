@@ -1,7 +1,7 @@
-@import './assets/styles/variables';
+@import "./assets/styles/variables";
 
 * {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 .bg-green {
   background-color: #9ed79a;
@@ -35,3 +35,5 @@ h6 {
 .w-80 {
   width: 80% !important;
 }
+
+@import "node_modules/bootstrap/scss/bootstrap";

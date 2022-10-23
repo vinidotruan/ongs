@@ -1,4 +1,11 @@
+<pre class="bg-warning">
+  teste: {{ navigation.getHistory() }}
+
+</pre>
 <nav class="d-flex align-items-center justify-content-between mx-4">
+  <a class="text-black" (click)="navigation.back()" *ngIf="showBack()">
+    <span class="material-symbols-rounded arrow-back"> arrow_back_ios </span>
+  </a>
   <h1>Olá {{ currentUser.name }}</h1>
 
   <div class="user-thumb">
