@@ -1,0 +1,48 @@
+@import "../../../../assets/styles/variables";
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  width: 2rem;
+}
+
+::ng-deep {
+  &ngb-datepicker {
+    .ngb-dp-day {
+      width: 3rem !important;
+      height: 3rem !important;
+    }
+
+    .ngb-dp-day > div {
+      width: 3rem !important;
+      height: 3rem !important;
+      line-height: 3rem !important;
+    }
+
+    .ngb-dp-weekday {
+      width: 3rem !important;
+    }
+
+    border: none !important;
+    .ngb-dp-header {
+      background-color: $primary;
+      .ngb-dp-month-name {
+        background: none;
+      }
+      .ngb-dp-navigation-chevron {
+        color: $white;
+      }
+    }
+
+    .ngb-dp-week.ngb-dp-weekdays {
+      background-color: $primary;
+      border: none;
+      .ngb-dp-weekday {
+        color: $white;
+        font-weight: 600;
+      }
+    }
+  }
+}

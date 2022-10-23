@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NewAppointmentForm } from '@models/forms/new-appointment';
 import { Ong } from '@models/ong';
@@ -41,6 +41,7 @@ export class AppointmentCreateComponent implements OnInit {
     this.form.patchValue({ ong_id: ong });
     this.getPets();
   };
+
   public listenChangeSlider = () => {
     this.form.get('max_distance')?.valueChanges.subscribe({
       next: (value) => (this.maxDistance = value),

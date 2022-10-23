@@ -17,6 +17,7 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
 import { ErrorInterceptor } from '@shared/interceptors/error.interceptor';
+import { CalendarComponent } from './shared/components/calendar/calendar.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -29,6 +30,7 @@ registerLocaleData(localePt, 'pt');
     HeaderComponent,
     HomeComponent,
     AppointmentCreateComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,

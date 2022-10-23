@@ -28,4 +28,5 @@ export class SpecialitiesService {
 
     return this.apiService.get<Speciality[]>(request);
   };
+
 }
