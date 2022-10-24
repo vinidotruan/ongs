@@ -12,7 +12,7 @@ export interface IndexResponse<T> extends ApiResponse<T> {
   to?: number;
   lastPage?: number;
   perPage?: number;
-  total: number;
+  total?: number;
   firstPageUrl?: string;
   lastPageUrl?: string;
   nextPageUrl?: string;

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ApiRequest, PostRequest } from '@models/requests/api-request';
 import { ApiResponse } from '@models/responses/api-response';
 import { DeleteResponse } from '@models/responses/delete-response';
@@ -9,6 +9,28 @@ import { PostResponse } from '@models/responses/post-response';
 import { PutResponse } from '@models/responses/put-response';
 import { ShowResponse } from '@models/responses/show-response';
 import { environment } from 'src/environments/environment';
+
+export const pipeDeserializeList = <T>(deserializeAs) =>
+  map((response: any) => {
+    if (deserializeAs) {
+      const list = response.data as T[];
+      response.data = list.map((data: T) =>
+        new deserializeAs().deserialize(data)
+      );
+    }
+    return response;
+  });
+
+export const pipeDeserializeObject = <T>(deserializeAs) =>
+  map((response: any) => {
+    if (deserializeAs) {
+      const data = response.data as T;
+      response.data = new deserializeAs().deserialize(data);
+      console.log(response.data);
+    }
+
+    return response;
+  });
 
 export const convertParamsToApi = (filters: [string, any, any?][]) => {
   if (!(filters instanceof Array)) {
@@ -43,35 +65,45 @@ export class ApiService {
     const path = environment.api + request.path;
     const params = request.params;
 
-    return this.http.get<IndexResponse<T>>(path, { params });
+    return this.http
+      .get<IndexResponse<T>>(path, { params })
+      .pipe(pipeDeserializeList(request.deserializeAs));
   }
 
   show<T>(request: ApiRequest): Observable<ShowResponse<T>> {
     const path = environment.api + request.path;
     const params = request.params || [];
 
-    return this.http.get<ShowResponse<T>>(path, { params });
+    return this.http
+      .get<ShowResponse<T>>(path, { params })
+      .pipe(pipeDeserializeObject<ShowResponse<T>>(request.deserializeAs));
   }
 
   get<T>(request: ApiRequest): Observable<ApiResponse<T>> {
     const path = environment.api + request.path;
     const params = request.params || [];
 
-    return this.http.get<ApiResponse<T>>(path, { params });
+    return this.http
+      .get<ApiResponse<T>>(path, { params })
+      .pipe(pipeDeserializeList(request.deserializeAs));
   }
 
   post<T>(request: PostRequest): Observable<PostResponse<T>> {
     const path = environment.api + request.path;
     const body = request.body;
 
-    return this.http.post<PostResponse<T>>(path, body);
+    return this.http
+      .post<PostResponse<T>>(path, body)
+      .pipe(pipeDeserializeObject<ShowResponse<T>>(request.deserializeAs));
   }
 
   put<T>(request: PostRequest): Observable<PutResponse<T>> {
     const path = environment.api + request.path;
     const body = request.body;
 
-    return this.http.put<PutResponse<T>>(path, body);
+    return this.http
+      .put<PutResponse<T>>(path, body)
+      .pipe(pipeDeserializeObject<ShowResponse<T>>(request.deserializeAs));
   }
 
   delete<T>(request: ApiRequest): Observable<DeleteResponse<T>> {

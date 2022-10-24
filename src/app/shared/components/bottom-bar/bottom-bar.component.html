@@ -1,0 +1,10 @@
+<nav class="d-flex align-items-center justify-content-between mx-4 bg-red">
+  <a
+    [routerLink]="item.path"
+    routerLinkActive="active"
+    class="material-symbols-outlined"
+    *ngFor="let item of navigationItems"
+  >
+    {{ item.icon }}
+  </a>
+</nav>

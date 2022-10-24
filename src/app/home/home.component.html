@@ -1,6 +1,132 @@
-<app-header></app-header>
-<button class="btn btn-primary" routerLink="/appointments/new">
-  Criar agendamentos
-</button>
-<button class="btn"></button>
-<button class="btn"></button>
+<div class="wrapper d-flex justify-content-between flex-column">
+  <app-header></app-header>
+  <div class="content container rounded-top wrapper h-100 py-4">
+    <section>
+      <div
+        class="title d-flex flex-row justify-content-between align-items-center"
+      >
+        <h4 class="text-white">Próximos agendamentos</h4>
+        <small class="text-white"> <b>ver todos</b> </small>
+      </div>
+      <div class="list mt-4">
+        <div class="col-10 me-2">
+          <div class="card border-0">
+            <div class="card-body">
+              <div class="card-title text-center">
+                <h4>
+                  <b>{{ date }}</b>
+                </h4>
+                <small class="card-subtitle text-muted">
+                  Agendamento nº 001
+                </small>
+              </div>
+              <div class="card-text d-flex justify-content-between pt-2">
+                <img
+                  [src]="dogUrl"
+                  alt=""
+                  srcset=""
+                  class="appointment-thumb"
+                />
+                <div class="text d-flex flex-column justify-content-between">
+                  <span> <h4>Pedrinho</h4></span>
+                  <span> Cachorro, 3 anos</span>
+                  <span> pequeno porte</span>
+                </div>
+              </div>
+              <div class="card-text d-flex mt-2">
+                <span class="badge bg-secondary d-flex align-items-center">
+                  <span>castração</span>
+                  <span class="material-symbols-outlined filled">
+                    medical_services
+                  </span>
+                </span>
+              </div>
+              <a href="#" class="btn btn-primary w-100 mt-2">Editar</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-10 me-2">
+          <div class="card border-0">
+            <div class="card-body">
+              <div class="card-title text-center">
+                <h4>
+                  <b>{{ date }}</b>
+                </h4>
+                <small class="card-subtitle text-muted">
+                  Agendamento nº 001
+                </small>
+              </div>
+              <div class="card-text d-flex justify-content-between pt-2">
+                <img
+                  [src]="dogUrl"
+                  alt=""
+                  srcset=""
+                  class="appointment-thumb"
+                />
+                <div class="text d-flex flex-column justify-content-between">
+                  <span> <h4>Pedrinho</h4></span>
+                  <span> Cachorro, 3 anos</span>
+                  <span> pequeno porte</span>
+                </div>
+              </div>
+              <div class="card-text d-flex mt-2">
+                <span class="badge bg-secondary d-flex align-items-center">
+                  <span>castração</span>
+                  <span class="material-symbols-outlined filled">
+                    medical_services
+                  </span>
+                </span>
+              </div>
+              <a href="#" class="btn btn-primary w-100 mt-2">Editar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div
+        class="title d-flex flex-row justify-content-between align-items-center mt-4"
+      >
+        <h4 class="text-white">Meus pets</h4>
+        <small class="text-white"> <b>ver todos</b> </small>
+      </div>
+
+      <div class="list mt-4">
+        <div class="col-12 me-2" *ngFor="let pet of user.pets">
+          <div class="card border-0">
+            <div class="card-body">
+              <div class="card-title">
+                <span>
+                  <h4>{{ pet.name }}</h4></span
+                >
+                <div class="text d-flex flex-column justify-content-between">
+                  <span>
+                    {{ pet.breed.name }}, {{ pet.aniversary() }} anos,
+                    {{ pet.size.name }}</span
+                  >
+                </div>
+              </div>
+              <div
+                class="card-text d-flex justify-content-between pt-2 align-items-center"
+              >
+                <img
+                  [src]="dogUrl"
+                  alt=""
+                  srcset=""
+                  class="appointment-thumb"
+                />
+
+                <a href="#" class="btn btn-primary w-100 mt-2">Editar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 
+    <button class="btn btn-primary" routerLink="/appointments/new">
+      Criar agendamentos
+    </button> -->
+  </div>
+</div>

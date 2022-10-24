@@ -1,39 +1,69 @@
-@import "./assets/styles/variables";
+@import "variables";
 
 * {
   font-family: "Montserrat";
 }
-.bg-green {
-  background-color: #9ed79a;
+
+html,
+body {
+  min-height: 100vh;
+  height: auto;
 }
 
-.rounded-top {
-  border-top-left-radius: 1rem !important;
-  border-top-right-radius: 1rem !important;
+.wrapper {
+  min-height: 80vh;
+  background-color: white;
+}
+
+.bg-green {
+  background-color: #9ed79a;
 }
 
 h1 {
   // font-size: 40px;
   font-weight: 600;
+  margin: 0 !important;
 }
 
 h2 {
   // font-size: 20px;
   font-weight: 600;
+  margin: 0 !important;
 }
 
 h3 {
   // font-size: 15px;
   font-weight: 600;
+  margin: 0 !important;
+}
+
+h4 {
+  // font-size: 20px;
+  font-weight: 600;
+  margin: 0 !important;
 }
 
 h6 {
   font-size: 13px;
   font-weight: 600;
+  margin: 0 !important;
 }
 
 .w-80 {
   width: 80% !important;
 }
 
+.content {
+  background-color: $secondary;
+}
+
 @import "node_modules/bootstrap/scss/bootstrap";
+
+.rounded-top {
+  border-top-left-radius: 30px !important;
+  border-top-right-radius: 30px !important;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+}

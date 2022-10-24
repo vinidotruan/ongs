@@ -4,6 +4,7 @@ import { PostRequest } from '@models/requests/api-request';
 import { ApiResponse } from '@models/responses/api-response';
 import { ApiService } from './api.service';
 import { User } from './user';
+import { LoginResponse } from './login-response';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,7 @@ export class AuthService {
     const request: PostRequest = {
       path: '/auth/login',
       body: data,
+      deserializeAs: LoginResponse,
     };
 
     return this.apiService.post<any>(request);

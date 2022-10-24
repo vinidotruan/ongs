@@ -8,10 +8,13 @@ import { User } from '@shared/services/user';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public currentUser: User;
-  constructor(private authService: AuthService) {
-    this.currentUser = this.authService.currentUser;
-  }
+  public date = new Date().toLocaleDateString();
+  public dogUrl = '/assets/images/dog.png';
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
+
+  get user(): User {
+    return this.authService.currentUser;
+  }
 }
