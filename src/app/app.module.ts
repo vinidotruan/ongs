@@ -20,6 +20,10 @@ import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
 import { ErrorInterceptor } from '@shared/interceptors/error.interceptor';
 import { CalendarComponent } from './shared/components/calendar/calendar.component';
 import { BottomBarComponent } from './shared/components/bottom-bar/bottom-bar.component';
+import { PetsListComponent } from './pets/pets-list/pets-list.component';
+import { PetCardComponent } from './shared/components/pet-card/pet-card.component';
+import { PetsFormComponent } from './pets/pets-form/pets-form.component';
+import { ViewWrapperComponent } from './shared/components/view-wrapper/view-wrapper.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -34,6 +38,10 @@ registerLocaleData(localePt, 'pt');
     AppointmentCreateComponent,
     CalendarComponent,
     BottomBarComponent,
+    PetsListComponent,
+    PetCardComponent,
+    PetsFormComponent,
+    ViewWrapperComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,41 @@
+<app-view-wrapper>
+  <div class="row">
+    <h4 class="text-white">Meu pet</h4>
+  </div>
+  <form [formGroup]="form">
+    <div class="col-12">
+      <label for="inputPassword5" class="form-label">Nome do seu pet</label>
+      <input
+        type="text"
+        id="pet-name"
+        class="form-control"
+        aria-describedby="name"
+        formControlName="name"
+      />
+    </div>
+    <div class="col-12 mt-4">
+      <label for="breed" class="form-label">Escolha a espécie do seu pet</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="breed_id"
+      >
+        <option *ngFor="let breed of breeds" [value]="breed?.id">
+          {{ breed?.name }}
+        </option>
+      </select>
+    </div>
+    <div class="col-12 mt-4">
+      <label for="breed" class="form-label">Escolha o porte do seu pet</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="size_id"
+      >
+        <option *ngFor="let size of sizes" [value]="size?.id">
+          {{ size?.name }}
+        </option>
+      </select>
+    </div>
+  </form>
+</app-view-wrapper>

@@ -1,0 +1,24 @@
+<div class="card border-0 h-100">
+  <div class="card-body d-flex justify-content-between flex-column">
+    <div class="card-title">
+      <span>
+        <h4>{{ pet?.name }}</h4></span
+      >
+      <div class="text d-flex flex-column justify-content-between">
+        <span>
+          {{ pet?.breed?.name }}, {{ pet?.aniversary() }} anos,
+          {{ pet?.size?.name }}</span
+        >
+      </div>
+    </div>
+    <div
+      class="card-text d-flex justify-content-between pt-2 align-items-center"
+    >
+      <img [src]="dogUrl" alt="" srcset="" class="appointment-thumb" />
+
+      <a [routerLink]="[pet?.id]" class="btn btn-primary w-100 mt-2 mx-4"
+        >Editar</a
+      >
+    </div>
+  </div>
+</div>

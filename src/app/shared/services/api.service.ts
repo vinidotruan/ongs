@@ -26,7 +26,6 @@ export const pipeDeserializeObject = <T>(deserializeAs) =>
     if (deserializeAs) {
       const data = response.data as T;
       response.data = new deserializeAs().deserialize(data);
-      console.log(response.data);
     }
 
     return response;

@@ -1,0 +1,18 @@
+<div class="wrapper d-flex justify-content-between flex-column">
+  <app-header></app-header>
+  <div class="content container rounded-top wrapper h-100 py-4">
+    <section>
+      <div
+        class="title d-flex flex-row justify-content-between align-items-center mt-4"
+      >
+        <h4 class="text-white">Meus pets</h4>
+      </div>
+
+      <div class="d-flex mt-4 row">
+        <div class="col-12 my-2" *ngFor="let pet of pets">
+          <app-pet-card [pet]="pet"> </app-pet-card>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

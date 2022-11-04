@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { SignUpForm } from '@models/forms/signup';
 import { AuthService } from '@shared/services/auth.service';
-import { SignUpForm } from '../models/forms/signup';
-import { IbgeService } from '../shared/services/ibge.service';
+import { IbgeService } from '@shared/services/ibge.service';
 
 @Component({
   selector: 'app-sign-up',

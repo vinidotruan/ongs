@@ -9,7 +9,7 @@ export class BottomBarComponent implements OnInit {
   public navigationItems = [
     { path: '/pets', icon: 'cruelty_free' },
     { path: '/home', icon: 'home', active: ['/home', '/appointments/'] },
-    { path: '/calendar', icon: 'calendar_month' },
+    { path: '/appointments', icon: 'calendar_month' },
     { path: '/settings', icon: 'settings' },
   ];
   constructor() {}

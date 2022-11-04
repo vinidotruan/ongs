@@ -92,35 +92,9 @@
         <small class="text-white"> <b>ver todos</b> </small>
       </div>
 
-      <div class="list mt-4">
+      <div class="d-flex overflow-scroll flex-nowrap mt-4 row flex-row">
         <div class="col-12 me-2" *ngFor="let pet of user.pets">
-          <div class="card border-0">
-            <div class="card-body">
-              <div class="card-title">
-                <span>
-                  <h4>{{ pet.name }}</h4></span
-                >
-                <div class="text d-flex flex-column justify-content-between">
-                  <span>
-                    {{ pet.breed.name }}, {{ pet.aniversary() }} anos,
-                    {{ pet.size.name }}</span
-                  >
-                </div>
-              </div>
-              <div
-                class="card-text d-flex justify-content-between pt-2 align-items-center"
-              >
-                <img
-                  [src]="dogUrl"
-                  alt=""
-                  srcset=""
-                  class="appointment-thumb"
-                />
-
-                <a href="#" class="btn btn-primary w-100 mt-2">Editar</a>
-              </div>
-            </div>
-          </div>
+          <app-pet-card [pet]="pet"></app-pet-card>
         </div>
       </div>
     </section>
