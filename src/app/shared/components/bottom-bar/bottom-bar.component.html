@@ -1,4 +1,7 @@
-<nav class="d-flex align-items-center justify-content-between mx-4 bg-red">
+<nav
+  class="d-flex align-items-center justify-content-between mx-4 bg-red"
+  *ngIf="show()"
+>
   <a
     [routerLink]="item.path"
     routerLinkActive="active"

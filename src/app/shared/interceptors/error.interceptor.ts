@@ -22,7 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
         if (errHttp.status === 401) {
           errorMessage = 'Your session has expired. Please login again.';
-          this.authService.signout();
+          this.authService.logout();
         }
         return throwError(() => new Error(errHttp));
       })

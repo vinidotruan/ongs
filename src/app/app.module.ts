@@ -24,6 +24,8 @@ import { PetsListComponent } from './pets/pets-list/pets-list.component';
 import { PetCardComponent } from './shared/components/pet-card/pet-card.component';
 import { PetsFormComponent } from './pets/pets-form/pets-form.component';
 import { ViewWrapperComponent } from './shared/components/view-wrapper/view-wrapper.component';
+import { FloatButtonComponent } from './shared/components/float-button/float-button.component';
+import { LogoutComponent } from './logout/logout.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -42,6 +44,8 @@ registerLocaleData(localePt, 'pt');
     PetCardComponent,
     PetsFormComponent,
     ViewWrapperComponent,
+    FloatButtonComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { Breed } from '@models/breed';
 import { Pet } from '@models/pet';
 import { ApiResponse } from '@models/responses/api-response';
 import { IndexResponse } from '@models/responses/index-response';
+import { PutResponse } from '@models/responses/put-response';
 import { ShowResponse } from '@models/responses/show-response';
 import { Size } from '@models/size';
 import { Observable } from 'rxjs';
@@ -48,5 +49,14 @@ export class PetsService {
     };
 
     return this.apiService.index<Size>(request);
+  };
+
+  public updatePet = (pet: Pet): Observable<PutResponse<Pet>> => {
+    const request = {
+      path: `/pets/${pet.id}`,
+      body: pet,
+      deserializeAs: Pet,
+    };
+    return this.apiService.put<Pet>(request);
   };
 }

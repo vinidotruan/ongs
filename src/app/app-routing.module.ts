@@ -4,6 +4,7 @@ import { AuthGuard } from '@shared/guard/auth.guard';
 import { AppointmentCreateComponent } from './appointments/appointment-create/appointment-create.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 import { PetsFormComponent } from './pets/pets-form/pets-form.component';
 import { PetsListComponent } from './pets/pets-list/pets-list.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -45,6 +46,12 @@ const routes: Routes = [
     component: PetsFormComponent,
     canActivate: [AuthGuard],
     data: { animation: 'petForm' },
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
+    canActivate: [AuthGuard],
+    data: { animation: 'logoutPage' },
   },
   {
     path: '',

@@ -18,7 +18,7 @@ export class PetsFormComponent implements OnInit {
   public form = new NewPetForm().form();
   public breeds: Breed[];
   public sizes: Breed[];
-  private petId: string;
+  public petId: string;
 
   constructor(private petService: PetsService, private route: ActivatedRoute) {
     const routeParams = this.route.snapshot.paramMap;
@@ -28,6 +28,15 @@ export class PetsFormComponent implements OnInit {
   ngOnInit(): void {
     this.getPetsInfos();
   }
+
+  public clicou = () => console.log('asdokjad');
+
+  public updatePet = () => {
+    this.petService.updatePet(this.form.getRawValue()).subscribe({
+      next: (response) => console.log(response),
+      error: (error) => alert(error),
+    });
+  };
 
   private getPetsInfos = () => {
     forkJoin([

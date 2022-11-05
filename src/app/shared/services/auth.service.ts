@@ -38,8 +38,13 @@ export class AuthService {
   public setToken = (token: string): void =>
     localStorage.setItem('access_token', token);
 
-  public signout = () => {
-    localStorage.removeItem('access_token');
+  public logout = () => {
+    const request = {
+      path: `/auth/logout`,
+      body: {},
+    };
+
+    return this.apiService.post(request);
   };
 
   public setCurrentUser = (user: User) => {

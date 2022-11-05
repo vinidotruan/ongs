@@ -16,7 +16,9 @@
     >
       <img [src]="dogUrl" alt="" srcset="" class="appointment-thumb" />
 
-      <a [routerLink]="[pet?.id]" class="btn btn-primary w-100 mt-2 mx-4"
+      <a
+        [routerLink]="['/pets/', pet?.id]"
+        class="btn btn-primary w-100 mt-2 mx-4"
         >Editar</a
       >
     </div>

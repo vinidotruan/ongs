@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@shared/services/auth.service';
 
 @Component({
   selector: 'app-bottom-bar',
@@ -10,9 +11,12 @@ export class BottomBarComponent implements OnInit {
     { path: '/pets', icon: 'cruelty_free' },
     { path: '/home', icon: 'home', active: ['/home', '/appointments/'] },
     { path: '/appointments', icon: 'calendar_month' },
-    { path: '/settings', icon: 'settings' },
+    { path: '/logout', icon: 'settings' },
   ];
-  constructor() {}
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
+
+  public show = (): string => this.authService.isLogged();
 }
