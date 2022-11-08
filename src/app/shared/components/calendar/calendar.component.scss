@@ -13,6 +13,20 @@
     .ngb-dp-day {
       width: 3rem !important;
       height: 3rem !important;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+
+      &.disabled {
+        .custom-day {
+          color: $gray-500 !important;
+        }
+      }
+
+      &:not(.disabled) {
+        background-color: $primary;
+        border-radius: 100%;
+      }
     }
 
     .ngb-dp-day > div {
@@ -28,6 +42,9 @@
     border: none !important;
     .ngb-dp-header {
       background-color: $primary;
+      .ngb-dp-arrow {
+        justify-content: center;
+      }
       .ngb-dp-month-name {
         background: none;
       }
@@ -35,10 +52,15 @@
         color: $white;
       }
     }
+    .ngb-dp-week {
+      background-color: $white;
+      border-radius: 0;
+    }
 
     .ngb-dp-week.ngb-dp-weekdays {
       background-color: $primary;
       border: none;
+
       .ngb-dp-weekday {
         color: $white;
         font-weight: 600;

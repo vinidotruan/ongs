@@ -157,37 +157,33 @@
         </div>
       </div>
 
-      <div class="wrapper-step">
+      <div class="wrapper-step" *ngIf="availablesDates">
         <h2 class="mx-2 my-2 text-center">Qual horário desejado?</h2>
 
         <div class="container pt-4">
-          <div class="row">
-            <div class="col-6 my-2">
-              <button type="button" class="btn btn-primary w-100">09:00</button>
-            </div>
-            <div class="col-6 my-2">
-              <button type="button" class="btn btn-primary w-100">09:00</button>
-            </div>
-            <div class="col-6 my-2">
-              <button type="button" class="btn btn-primary w-100">09:00</button>
-            </div>
-            <div class="col-6 my-2">
-              <button type="button" class="btn btn-primary w-100">09:00</button>
-            </div>
-            <div class="col-6 my-2">
-              <button type="button" class="btn btn-primary w-100">09:00</button>
-            </div>
-            <div class="col-6 my-2">
-              <button type="button" class="btn btn-primary w-100">09:00</button>
+          <div class="row align-items-center justify-content-center">
+            <div
+              class="col-8 my-2"
+              *ngFor="let hour of getHoursOfAvailableDates()"
+            >
+              <button
+                type="button"
+                class="btn btn-primary w-100"
+                (click)="selectHour(hour)"
+              >
+                {{ hour }}
+              </button>
             </div>
           </div>
         </div>
 
-        <div class="container pt-4">
+        <div class="container pt-4" *ngIf="selectedHour">
           <div class="row">
             <div class="col-12 d-flex justify-content-center">
               <!-- aceita form control -->
-              <app-calendar></app-calendar>
+              <app-calendar
+                [availableDates]="availablesDaysOfDate"
+              ></app-calendar>
             </div>
           </div>
         </div>
