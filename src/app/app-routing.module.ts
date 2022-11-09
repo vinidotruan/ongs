@@ -42,6 +42,12 @@ const routes: Routes = [
     data: { animation: 'petsList' },
   },
   {
+    path: 'pets/create',
+    component: PetsFormComponent,
+    canActivate: [AuthGuard],
+    data: { animation: 'petForm' },
+  },
+  {
     path: 'pets/:petId',
     component: PetsFormComponent,
     canActivate: [AuthGuard],

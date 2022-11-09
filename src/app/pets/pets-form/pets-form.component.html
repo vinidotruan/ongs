@@ -37,6 +37,16 @@
         </option>
       </select>
     </div>
+    <div class="col-12 mt-4">
+      <label for="breed" class="form-label">Aniversário</label>
+      <input
+        type="date"
+        id="pet-birthdate"
+        class="form-control"
+        aria-describedby="birthdate"
+        formControlName="birth_date"
+      />
+    </div>
     <app-float-button
       customClasses="btn-primary"
       (click)="clicou()"
@@ -44,10 +54,7 @@
     >
       <span class="material-symbols-outlined"> add </span>
     </app-float-button>
-    <div
-      class="col-12 mt-4 d-flex justify-content-center"
-      (click)="updatePet()"
-    >
+    <div class="col-12 mt-4 d-flex justify-content-center" (click)="submit()">
       <button class="btn btn-primary">Salvar</button>
     </div>
   </form>

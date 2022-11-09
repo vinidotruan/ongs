@@ -27,30 +27,47 @@ export class PetsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPetsInfos();
+    if (this.petId) {
+      this.getPetDetails();
+    }
   }
 
   public clicou = () => console.log('asdokjad');
 
-  public updatePet = () => {
+  public submit = () => {
+    this.form.get('id') ? this.updatePet() : this.createPet();
+  };
+
+  public updatePet = (): void => {
     this.petService.updatePet(this.form.getRawValue()).subscribe({
       next: (response) => console.log(response),
       error: (error) => alert(error),
     });
   };
 
-  private getPetsInfos = () => {
+  public createPet = () => {
+    this.petService.store(this.form.getRawValue()).subscribe({
+      next: (response) => console.log(response),
+      error: (error) => alert(error),
+    });
+  };
+
+  private getPetsInfos = (): void => {
     forkJoin([
       this.petService.getAllBreeds(),
       this.petService.getAllBreedsSizes(),
-      this.petService.getPet(this.petId),
     ]).subscribe({
-      next: (
-        value: [IndexResponse<Breed>, IndexResponse<Size>, ShowResponse<Pet>]
-      ) => {
+      next: (value: [IndexResponse<Breed>, IndexResponse<Size>]) => {
         this.breeds = value[0].data;
         this.sizes = value[1].data;
-        this.form.patchValue(value[2].data);
       },
+      error: (error) => alert(error),
+    });
+  };
+
+  private getPetDetails = () => {
+    this.petService.getPet(this.petId).subscribe({
+      next: ({ data }) => this.form.patchValue(data),
       error: (error) => alert(error),
     });
   };
