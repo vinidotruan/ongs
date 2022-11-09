@@ -1,9 +1,10 @@
 import {
-  ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -17,11 +18,12 @@ import {
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent implements OnInit, OnChanges {
   @ViewChild(NgbDatepicker, { static: true }) datepicker: NgbDatepicker;
   @Input() availableDates: any;
+  @Output() dateSelected = new EventEmitter();
 
   public isDisabled: (date: NgbDate, current: { month: number }) => boolean;
 
@@ -35,4 +37,8 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.isDisabled = (date: NgbDate, current: { month: number }) =>
       !this.availableDates[current.month].includes(date.day);
   }
+
+  public onDateSelect = (event: any) => {
+    this.dateSelected.emit(event);
+  };
 }

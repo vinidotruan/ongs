@@ -22,7 +22,7 @@ export class AppointmentCreateComponent implements OnInit {
   public ongs: Ong[] = [];
   public pets: Pet[] = [];
   public availablesDates: AvailableDate[];
-  public availablesDaysOfDate = allMonthsObject;
+  public availablesDaysOfDate = {};
   public selectedHour: string;
 
   constructor(
@@ -68,13 +68,24 @@ export class AppointmentCreateComponent implements OnInit {
     this.maxDistance == actualDistance;
 
   public dateClicked = (event: any) => {
-    console.log(event);
+    const eventDate = `${event.year}-${event.month}-${event.day}`;
+    const eventHour = this.selectedHour;
+
+    const selectedDate = this.availablesDates.find(
+      (date) => date.date == eventDate && date.start_time == eventHour
+    );
+
+    this.form.patchValue({ schedule_id: selectedDate.id });
+    console.log(this.form.getRawValue());
   };
 
-  public getHoursOfAvailableDates = (): string[] =>
-    this.availablesDates.map((date) => date.start_time);
+  public getHoursOfAvailableDates = (): string[] => [
+    ...new Set(this.availablesDates.map((date) => date.start_time)),
+  ];
 
   public setAvailableDays = (hour: string) => {
+    this.availablesDaysOfDate = JSON.parse(JSON.stringify(allMonthsObject));
+
     this.availablesDates
       .filter((date) => date.start_time === hour)
       .map((date) => this.availablesDaysOfDate[date.month()].push(date.day()));

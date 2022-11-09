@@ -180,9 +180,9 @@
         <div class="container pt-4" *ngIf="selectedHour">
           <div class="row">
             <div class="col-12 d-flex justify-content-center">
-              <!-- aceita form control -->
               <app-calendar
                 [availableDates]="availablesDaysOfDate"
+                (dateSelected)="dateClicked($event)"
               ></app-calendar>
             </div>
           </div>
