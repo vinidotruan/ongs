@@ -1,12 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AvailableDate } from '@models/available-date';
 import { NewAppointmentForm } from '@models/forms/new-appointment';
 import { Ong } from '@models/ong';
 import { Pet } from '@models/pet';
 import { Speciality } from '@models/speciality';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlertSuccessComponent } from '@shared/components/modals/alert-success/alert-success.component';
 import { allMonthsObject } from '@shared/helpers/calendar-helper';
 import { AuthService } from '@shared/services/auth.service';
+import { PetsService } from '@shared/services/pets.service';
 import { SchedulesService } from '@shared/services/schedules.service';
 import { SpecialitiesService } from '@shared/services/specialities.service';
 
@@ -28,7 +32,10 @@ export class AppointmentCreateComponent implements OnInit {
   constructor(
     private specialitiesService: SpecialitiesService,
     private authService: AuthService,
-    private scheduleService: SchedulesService
+    private scheduleService: SchedulesService,
+    private petsService: PetsService,
+    private modalService: NgbModal,
+    private router: Router
   ) {
     this.form = new NewAppointmentForm().form();
   }
@@ -68,7 +75,10 @@ export class AppointmentCreateComponent implements OnInit {
     this.maxDistance == actualDistance;
 
   public dateClicked = (event: any) => {
-    const eventDate = `${event.year}-${event.month}-${event.day}`;
+    let { year, month, day } = event;
+    day = String(day).length < 2 ? `0${day}` : day;
+
+    const eventDate = `${year}-${month}-${day}`;
     const eventHour = this.selectedHour;
 
     const selectedDate = this.availablesDates.find(
@@ -76,7 +86,6 @@ export class AppointmentCreateComponent implements OnInit {
     );
 
     this.form.patchValue({ schedule_id: selectedDate.id });
-    console.log(this.form.getRawValue());
   };
 
   public getHoursOfAvailableDates = (): string[] => [
@@ -89,6 +98,21 @@ export class AppointmentCreateComponent implements OnInit {
     this.availablesDates
       .filter((date) => date.start_time === hour)
       .map((date) => this.availablesDaysOfDate[date.month()].push(date.day()));
+  };
+
+  public submit = (): void => {
+    this.form.patchValue({ type_scheduling_id: 1, description: 'dasdasd' });
+    this.scheduleService.makeScheduling(this.form.getRawValue()).subscribe({
+      next: (response) => {
+        this.modalService
+          .open(AlertSuccessComponent, { backdrop: false })
+          .closed.subscribe({
+            next: () => this.router.navigate(['/home']),
+            error: (error) => console.log(error),
+          });
+      },
+      error: (error) => alert(error),
+    });
   };
 
   private getSpecialities = (): void => {
@@ -105,8 +129,12 @@ export class AppointmentCreateComponent implements OnInit {
     });
   };
 
-  private getPets = (): Pet[] =>
-    (this.pets = this.authService.currentUser?.pets);
+  private getPets = (): void => {
+    this.petsService.getPetsByUser(this.authService.currentUser.id).subscribe({
+      next: ({ data }: { data: Pet[] }) => (this.pets = data),
+      error: (error) => alert(error),
+    });
+  };
 
   private getSchedulesAvailables = (): void => {
     this.scheduleService

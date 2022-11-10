@@ -44,6 +44,9 @@
       background-color: $primary;
       .ngb-dp-arrow {
         justify-content: center;
+        button {
+          min-width: 100%;
+        }
       }
       .ngb-dp-month-name {
         background: none;
