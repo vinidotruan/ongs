@@ -14,7 +14,12 @@
     <div
       class="card-text d-flex justify-content-between pt-2 align-items-center"
     >
-      <img [src]="dogUrl" alt="" srcset="" class="appointment-thumb" />
+      <img
+        [src]="pet.icon || pet.defaultIcon()"
+        alt=""
+        srcset=""
+        class="appointment-thumb"
+      />
 
       <a
         [routerLink]="['/pets/', pet?.id]"

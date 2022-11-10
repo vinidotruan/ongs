@@ -27,8 +27,18 @@ export class SchedulesService {
     const request = {
       path: '/schedulings',
       body: scheduling,
+      deserializeAs: Scheduling,
     };
 
     return this.apiService.post<Scheduling>(request);
+  };
+
+  public getNextScheduling = () => {
+    const request = {
+      path: '/schedulings/next-schedulings',
+      deserializeAs: Scheduling,
+    };
+
+    return this.apiService.get(request);
   };
 }

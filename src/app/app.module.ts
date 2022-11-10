@@ -27,6 +27,7 @@ import { ViewWrapperComponent } from './shared/components/view-wrapper/view-wrap
 import { FloatButtonComponent } from './shared/components/float-button/float-button.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AlertSuccessComponent } from './shared/components/modals/alert-success/alert-success.component';
+import { SchedulingCardComponent } from './shared/components/scheduling-card/scheduling-card.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -48,6 +49,7 @@ registerLocaleData(localePt, 'pt');
     FloatButtonComponent,
     LogoutComponent,
     AlertSuccessComponent,
+    SchedulingCardComponent,
   ],
   imports: [
     BrowserModule,

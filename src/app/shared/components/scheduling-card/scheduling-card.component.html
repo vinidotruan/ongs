@@ -1,0 +1,42 @@
+<div class="card border-0">
+  <div class="card-body">
+    <div class="card-title text-center">
+      <h4>
+        <b>{{ scheduling.date }} - {{ scheduling.hour }}</b>
+      </h4>
+      <small class="card-subtitle text-muted">
+        Agendamento nº {{ scheduling.id }}
+      </small>
+    </div>
+
+    <div class="card-text d-flex justify-content-between pt-2">
+      <img
+        [src]="scheduling.pet.icon || scheduling.pet.defaultIcon()"
+        alt=""
+        srcset=""
+        class="appointment-thumb me-2"
+      />
+      <div class="text d-flex flex-column justify-content-between">
+        <span>
+          <h4>{{ scheduling.pet.name }}</h4></span
+        >
+        <span>
+          {{ scheduling.pet.breed.name }},{{
+            scheduling.pet.aniversary()
+          }}
+          anos</span
+        >
+        <span> {{ scheduling.pet.size.name }}</span>
+      </div>
+    </div>
+    <div class="card-text d-flex mt-2">
+      <span class="badge bg-secondary d-flex align-items-center">
+        <span>{{ scheduling.type_scheduling.name }}</span>
+        <span class="material-symbols-outlined filled ms-2">
+          medical_services
+        </span>
+      </span>
+    </div>
+    <a href="#" class="btn btn-primary w-100 mt-2">Editar</a>
+  </div>
+</div>
