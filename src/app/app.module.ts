@@ -28,6 +28,7 @@ import { FloatButtonComponent } from './shared/components/float-button/float-but
 import { LogoutComponent } from './logout/logout.component';
 import { AlertSuccessComponent } from './shared/components/modals/alert-success/alert-success.component';
 import { SchedulingCardComponent } from './shared/components/scheduling-card/scheduling-card.component';
+import { DesktopModule } from './desktop/desktop.module';
 
 registerLocaleData(localePt, 'pt');
 
@@ -60,6 +61,7 @@ registerLocaleData(localePt, 'pt');
     ReactiveFormsModule,
     NgHttpLoaderModule.forRoot(),
     NgbModule,
+    DesktopModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

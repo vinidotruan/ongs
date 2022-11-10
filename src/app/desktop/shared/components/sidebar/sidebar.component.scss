@@ -1,0 +1,10 @@
+@import "variables";
+
+nav {
+  background-color: $primary;
+  width: 300px;
+  position: fixed;
+  z-index: 9999999;
+  height: 90vh;
+  border-radius: 15px;
+}

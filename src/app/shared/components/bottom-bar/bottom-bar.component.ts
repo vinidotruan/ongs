@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@shared/services/auth.service';
+import { NavigationService } from '@shared/services/navigation.service';
 
 @Component({
   selector: 'app-bottom-bar',
@@ -14,9 +15,14 @@ export class BottomBarComponent implements OnInit {
     { path: '/logout', icon: 'settings' },
   ];
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private navigationService: NavigationService
+  ) {}
 
   ngOnInit(): void {}
 
-  public show = (): string => this.authService.isLogged();
+  public show = (): boolean =>
+    this.authService.isLogged() &&
+    !this.navigationService.currentUrl?.includes('desktop');
 }

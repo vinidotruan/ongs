@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@shared/guard/auth.guard';
 import { AppointmentCreateComponent } from './appointments/appointment-create/appointment-create.component';
+import { DesktopRoutingModule } from './desktop/desktop-routing.module';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -24,6 +25,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     data: { animation: 'homePage' },
+  },
+  {
+    path: 'desktop',
+    loadChildren: () =>
+      import('./desktop/desktop.module').then((m) => m.DesktopModule),
   },
   {
     path: 'appointments/new',
