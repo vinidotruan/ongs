@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@shared/guard/auth.guard';
 import { AppointmentCreateComponent } from './appointments/appointment-create/appointment-create.component';
-import { DesktopRoutingModule } from './desktop/desktop-routing.module';
 import { HomeComponent } from './home/home.component';
+import { HomeComponent as DesktopHomeComponent } from './desktop/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { PetsFormComponent } from './pets/pets-form/pets-form.component';
 import { PetsListComponent } from './pets/pets-list/pets-list.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { DesktopComponent } from './desktop/desktop.component';
 
 const routes: Routes = [
   {
@@ -28,8 +29,14 @@ const routes: Routes = [
   },
   {
     path: 'desktop',
-    loadChildren: () =>
-      import('./desktop/desktop.module').then((m) => m.DesktopModule),
+    component: DesktopComponent,
+    children: [
+      { path: '', component: DesktopHomeComponent },
+      {
+        path: 'home',
+        component: DesktopHomeComponent,
+      },
+    ],
   },
   {
     path: 'appointments/new',

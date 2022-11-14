@@ -1,3 +1,25 @@
-<nav class="d-flex align-items-center justify-content-between mx-4">
-  IJDSF098SJF90
+<nav class="d-flex align-items-center justify-content-between mx-4 flex-column">
+  <div
+    class="d-flex align-items-center justify-content-between my-4 w-100 px-4"
+  >
+    <h3>Olá {{ currentUser.name }}</h3>
+
+    <div class="user-thumb">
+      <img src="/assets/icons/default_icon.png" alt="" srcset="" />
+    </div>
+  </div>
+  <hr class="w-80" />
+  <div class="d-flex flex-column h-100 w-100 px-4">
+    <a
+      [routerLink]="item.path"
+      routerLinkActive="active"
+      class="item material-symbols-outlined align-items-center justify-content-start d-flex p-2"
+      *ngFor="let item of navigationItems"
+    >
+      {{ item.icon }}
+      <span class="ms-2">
+        {{ item.text }}
+      </span>
+    </a>
+  </div>
 </nav>
