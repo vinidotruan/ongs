@@ -11,12 +11,16 @@ export class SidebarComponent implements OnInit {
   public currentUser: User;
   public navigationItems = [
     {
-      path: '/home',
+      path: '/desktop/home',
       icon: 'home',
       active: ['/home', '/appointments/'],
       text: 'Agendamentos',
     },
-    { path: '/appointments', icon: 'calendar_month', text: 'Editar Agendas' },
+    {
+      path: '/desktop/management',
+      icon: 'calendar_month',
+      text: 'Editar Agendas',
+    },
   ];
   constructor(private authService: AuthService) {
     this.currentUser = this.authService.getCurrentUser();

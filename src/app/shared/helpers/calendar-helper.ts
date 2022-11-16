@@ -11,3 +11,13 @@ export const allMonthsObject = {
   11: [],
   12: [],
 };
+
+export const allWeekDaysArray = [
+  { name: 'Dom', id: 1 },
+  { name: 'Seg', id: 2 },
+  { name: 'Ter', id: 3 },
+  { name: 'Qua', id: 4 },
+  { name: 'Qui', id: 5 },
+  { name: 'Sex', id: 6 },
+  { name: 'Sab', id: 7 },
+];

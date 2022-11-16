@@ -29,6 +29,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AlertSuccessComponent } from './shared/components/modals/alert-success/alert-success.component';
 import { SchedulingCardComponent } from './shared/components/scheduling-card/scheduling-card.component';
 import { DesktopModule } from './desktop/desktop.module';
+import { SharedModule } from '@shared/shared.module';
 
 registerLocaleData(localePt, 'pt');
 
@@ -41,7 +42,6 @@ registerLocaleData(localePt, 'pt');
     HeaderComponent,
     HomeComponent,
     AppointmentCreateComponent,
-    CalendarComponent,
     BottomBarComponent,
     PetsListComponent,
     PetCardComponent,
@@ -53,6 +53,8 @@ registerLocaleData(localePt, 'pt');
     SchedulingCardComponent,
   ],
   imports: [
+    DesktopModule,
+    SharedModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -61,7 +63,6 @@ registerLocaleData(localePt, 'pt');
     ReactiveFormsModule,
     NgHttpLoaderModule.forRoot(),
     NgbModule,
-    DesktopModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

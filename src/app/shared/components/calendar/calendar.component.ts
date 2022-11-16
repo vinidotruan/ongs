@@ -23,6 +23,7 @@ import {
 export class CalendarComponent implements OnInit, OnChanges {
   @ViewChild(NgbDatepicker, { static: true }) datepicker: NgbDatepicker;
   @Input() availableDates: any;
+  @Input() classes?: string;
   @Output() dateSelected = new EventEmitter();
 
   public isDisabled: (date: NgbDate, current: { month: number }) => boolean;

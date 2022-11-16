@@ -10,6 +10,15 @@
 
 ::ng-deep {
   &ngb-datepicker {
+    &:not(.specialist-calendar) {
+      .ngb-dp-day {
+        &:not(.disabled) {
+          background-color: $primary;
+          border-radius: 100%;
+        }
+      }
+    }
+
     .ngb-dp-day {
       width: 3rem !important;
       height: 3rem !important;
@@ -25,7 +34,8 @@
 
       &:not(.disabled) {
         background-color: $primary;
-        border-radius: 100%;
+        color: white;
+        // border-radius: 100%;
       }
     }
 

@@ -28,4 +28,17 @@ export class SpecialitiesService {
 
     return this.apiService.get<Speciality[]>(request);
   };
+
+  public getSpecialitiesByOng = (
+    ong: string
+  ): Observable<ApiResponse<Speciality[]>> => {
+    const request: ApiRequest = {
+      path: `ongs/${ong}/specialities`,
+      deserializeAs: Speciality,
+    };
+
+    return <Observable<ApiResponse<Speciality[]>>>(
+      this.apiService.get<Speciality[]>(request)
+    );
+  };
 }

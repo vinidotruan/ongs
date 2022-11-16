@@ -1,0 +1,18 @@
+@import "variables";
+
+.container {
+  margin-left: calc(10% + 250px);
+}
+
+:host {
+  ::ng-deep {
+    section {
+      h2 {
+        background-color: $primary !important;
+        border-radius: 15px;
+        padding: 1rem;
+        color: white;
+      }
+    }
+  }
+}

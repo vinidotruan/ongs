@@ -103,7 +103,7 @@ export class AppointmentCreateComponent implements OnInit {
   public submit = (): void => {
     this.form.patchValue({ type_scheduling_id: 1, description: 'dasdasd' });
     this.scheduleService.makeScheduling(this.form.getRawValue()).subscribe({
-      next: (response) => {
+      next: () => {
         this.modalService
           .open(AlertSuccessComponent, { backdrop: false })
           .closed.subscribe({

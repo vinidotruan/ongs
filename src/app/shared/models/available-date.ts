@@ -7,6 +7,7 @@ export class AvailableDate extends BaseModel {
   public interval_time: string;
   public start_time: string;
   public professionals?: User[];
+  public available: boolean;
 
   public day = (): number => new Date(this.date).getDate() + 1;
   public month = (): number => new Date(this.date).getMonth() + 1;
