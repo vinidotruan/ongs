@@ -63,7 +63,9 @@ export class OngService {
     return this.apiService.show<Ong>(request);
   };
 
-  public getSchedules = (ong: string) => {
+  public getSchedules = (
+    ong: string
+  ): Observable<ApiResponse<UserSpeciality[]>> => {
     const request = {
       path: `/ongs/${ong}/schedules`,
     };

@@ -4,6 +4,7 @@ import { AuthService } from '@shared/services/auth.service';
 import { User, UserSpeciality } from '@shared/services/user';
 import { AvailableDate } from '@models/available-date';
 import { allMonthsObject } from '@shared/helpers/calendar-helper';
+import { Ong } from '@models/ong';
 
 @Component({
   selector: 'app-home',
@@ -13,19 +14,28 @@ import { allMonthsObject } from '@shared/helpers/calendar-helper';
 export class HomeComponent implements OnInit {
   public specialists: UserSpeciality[];
   public availableDays = JSON.parse(JSON.stringify(allMonthsObject));
+  public ong: Ong;
   constructor(
     private ongService: OngService,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    const ong = this.authService.currentUser['ongs'][0]?.id;
-    this.getSpecialists(ong);
+    this.ongService.currentOng.subscribe({
+      next: (response: Ong) => {
+        if (response) {
+          this.ong = response;
+          this.getSpecialists(response.id);
+        }
+      },
+      error: (error) => {},
+    });
   }
 
   click = () => console.log('click');
 
   private getSpecialists = (ong: string) => {
+    console.log(ong);
     this.ongService.getSpecialists(ong).subscribe({
       next: ({ data }: { data: UserSpeciality[] }) => {
         this.specialists = data;

@@ -164,5 +164,45 @@
     <section>
       <h2>Agendas</h2>
     </section>
+    <div
+      class="row"
+      *ngFor="let calendar of specialistsSchedules; let i = index"
+    >
+      <section class="my-2 w-80">
+        <h3>
+          {{ calendar[0].user.name }}
+        </h3>
+      </section>
+      <ng-container *ngFor="let specialist of calendar">
+        <div class="container w-80 mx-4">
+          <div
+            class="col-12 d-flex align-items-center p-2 list my-2 rounded"
+            *ngFor="let schedule of specialist.schedules"
+          >
+            <div
+              class="col d-flex flex-column justify-content-center align-items-center"
+            >
+              <b>Data</b> {{ schedule.date }}
+            </div>
+            <div
+              class="col d-flex flex-column justify-content-center align-items-center"
+            >
+              <b>Dia:</b> Segunda
+            </div>
+            <div
+              class="col d-flex flex-column justify-content-center align-items-center"
+            >
+              <span> <b>Hora inicial</b> {{ schedule.initial_hour() }} </span>
+              <span> <b>Hora Final</b> {{ schedule.final_hour() }} </span>
+            </div>
+            <div
+              class="col d-flex flex-column justify-content-center align-items-center"
+            >
+              <b>Especialidade: </b> {{ calendar[i].speciality?.name }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </div>

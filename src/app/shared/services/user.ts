@@ -51,10 +51,18 @@ export class UserSpeciality extends BaseModel {
   public user_id: string;
 
   public user?: User;
+  public speciality?: Speciality;
+  public schedules?: AvailableDate[];
 
   public override deserialize(input: any): this {
-    input.user = input.user
-      ? input.user.map((user) => new User().deserialize(user))
+    input.user = input.user ? new User().deserialize(input.user) : {};
+    input.speciality = input.speciality
+      ? new Speciality().deserialize(input.speciality)
+      : {};
+    input.schedules = input.schedules
+      ? input.schedules.map((schedules) =>
+          new AvailableDate().deserialize(schedules)
+        )
       : [];
 
     Object.assign(this, input);

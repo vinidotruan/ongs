@@ -15,7 +15,7 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./pets-form.component.scss'],
 })
 export class PetsFormComponent implements OnInit {
-  public form = new NewPetForm().form();
+  public form = new NewPetForm().form(false);
   public breeds: Breed[];
   public sizes: Breed[];
   public petId: string;
@@ -35,7 +35,7 @@ export class PetsFormComponent implements OnInit {
   public clicou = () => console.log('asdokjad');
 
   public submit = () => {
-    this.form.get('id') ? this.updatePet() : this.createPet();
+    this.form.get('id').value ? this.updatePet() : this.createPet();
   };
 
   public updatePet = (): void => {

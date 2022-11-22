@@ -3,7 +3,6 @@ import { FormArray } from '@angular/forms';
 import { CreateScheduleForm } from '@models/forms/create-schedule';
 import { Speciality } from '@models/speciality';
 import { allWeekDaysArray } from '@shared/helpers/calendar-helper';
-import { AuthService } from '@shared/services/auth.service';
 import { OngService } from '@shared/services/ong.service';
 import { SchedulesService } from '@shared/services/schedules.service';
 import { SpecialitiesService } from '@shared/services/specialities.service';
@@ -18,6 +17,7 @@ export class SchedulesManagementComponent implements OnInit {
   public weekDays = allWeekDaysArray;
   public form = new CreateScheduleForm().form();
   public specialists: UserSpeciality[];
+  public specialistsSchedules: UserSpeciality[][];
   public filteredSpecialists: UserSpeciality[];
   public specialities: Speciality[] = [];
   public schedules: any[];
@@ -82,7 +82,20 @@ export class SchedulesManagementComponent implements OnInit {
 
   private getSchedules = (ong: string) => {
     this.ongService.getSchedules(ong).subscribe({
-      next: (response) => console.log(response),
+      next: ({ data }: { data: UserSpeciality[][] }) => {
+        // this.specialistsSchedules = Object.values(data).map((e) =>
+        //   e.map((re) => new UserSpeciality().deserialize(re))
+        // );
+        this.specialistsSchedules = Object.values(data).map((e) =>
+          e.map((re) => {
+            return new UserSpeciality().deserialize(re);
+          })
+        );
+        console.log(this.specialistsSchedules);
+        // data.forEach((e) => console.log(e));
+        // console.log({ data });
+        // this.specialistsSchedules = data;
+      },
       error: (error) => console.log(error),
     });
   };

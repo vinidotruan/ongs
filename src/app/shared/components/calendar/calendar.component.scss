@@ -10,6 +10,21 @@
 
 ::ng-deep {
   &ngb-datepicker {
+    .ngb-dp-month-name {
+      color: $white;
+    }
+    &.specialist-calendar {
+      width: 700px;
+      .ngb-dp-month {
+        width: 100%;
+        .ngb-dp-week.ngb-dp-weekdays {
+          justify-content: space-between;
+        }
+        .ngb-dp-week {
+          justify-content: space-between;
+        }
+      }
+    }
     &:not(.specialist-calendar) {
       .ngb-dp-day {
         &:not(.disabled) {
