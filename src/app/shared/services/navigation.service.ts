@@ -12,6 +12,7 @@ export class NavigationService {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
+        console.log(event.url);
         this.currentUrl = event.url;
       });
   }

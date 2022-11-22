@@ -21,6 +21,11 @@ export class SidebarComponent implements OnInit {
       icon: 'calendar_month',
       text: 'Editar Agendas',
     },
+    {
+      path: '/desktop/specialist/register',
+      icon: 'calendar_month',
+      text: 'Registrar Médico',
+    },
   ];
   constructor(private authService: AuthService) {
     this.currentUser = this.authService.getCurrentUser();

@@ -41,4 +41,13 @@ export class SchedulesService {
 
     return this.apiService.get(request);
   };
+
+  public storeSchedule = (schedule) => {
+    const request = {
+      path: `/schedules`,
+      body: schedule,
+    };
+
+    return this.apiService.post(request);
+  };
 }

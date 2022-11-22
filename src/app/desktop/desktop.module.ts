@@ -9,6 +9,7 @@ import { DesktopRoutingModule } from './desktop-routing.module';
 import { SharedModule } from '@shared/shared.module';
 import { SchedulesManagementComponent } from './schedules-management/schedules-management.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './specialist/register/register.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     SidebarComponent,
     SchedulesManagementComponent,
+    RegisterComponent,
   ],
   imports: [
     DesktopRoutingModule,

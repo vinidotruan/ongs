@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { CreateScheduleForm } from '@models/forms/create-schedule';
+import { Speciality } from '@models/speciality';
 import { allWeekDaysArray } from '@shared/helpers/calendar-helper';
 import { AuthService } from '@shared/services/auth.service';
 import { OngService } from '@shared/services/ong.service';
+import { SchedulesService } from '@shared/services/schedules.service';
 import { SpecialitiesService } from '@shared/services/specialities.service';
-import { User } from '@shared/services/user';
+import { User, UserSpeciality } from '@shared/services/user';
 
 @Component({
   selector: 'app-schedules-management',
@@ -15,18 +17,29 @@ import { User } from '@shared/services/user';
 export class SchedulesManagementComponent implements OnInit {
   public weekDays = allWeekDaysArray;
   public form = new CreateScheduleForm().form();
-  public specialists: User[];
+  public specialists: UserSpeciality[];
+  public filteredSpecialists: UserSpeciality[];
+  public specialities: Speciality[] = [];
+  public schedules: any[];
 
   constructor(
     private ongService: OngService,
-    private authService: AuthService,
-    private specialitiesService: SpecialitiesService
-  ) {}
+    private scheduleService: SchedulesService
+  ) {
+    this.ongService.currentOng.subscribe({
+      next: (ong) => {
+        if (ong.id) {
+          this.getSpecialists(ong.id);
+          this.getSchedules(ong.id);
+        }
+      },
+      error: (error) => console.log(error),
+    });
 
-  ngOnInit(): void {
-    const currentUser = this.authService.currentUser;
-    this.getSpecialists(currentUser.ongs[0]['id']);
+    this.listenSpecialityChange();
   }
+
+  ngOnInit(): void {}
 
   public checkAll = () => {
     const weekDays = this.form.get('week_days') as FormArray;
@@ -42,11 +55,47 @@ export class SchedulesManagementComponent implements OnInit {
     formArray.push(specialist_id);
   };
 
-  public createSchedules = () => {};
+  public createSchedule = () => {
+    this.scheduleService.storeSchedule(this.form.value).subscribe({
+      next: (response) => console.log(response),
+      error: (error) => console.log(error),
+    });
+  };
 
-  private getSpecialists = (ong) => {
+  private getSpecialities = () => {
+    const specialities = [];
+    this.specialists.map(({ user }) => specialities.push(user.specialities));
+    new Set(...specialities).forEach((speciality) =>
+      this.specialities.push(new Speciality().deserialize(speciality))
+    );
+  };
+
+  private getSpecialists = (ong: string) => {
     this.ongService.getSpecialists(ong).subscribe({
-      next: ({ data }: { data: User[] }) => (this.specialists = data),
+      next: ({ data }: { data: UserSpeciality[] }) => {
+        this.specialists = data;
+        this.getSpecialities();
+      },
+      error: (error) => console.log(error),
+    });
+  };
+
+  private getSchedules = (ong: string) => {
+    this.ongService.getSchedules(ong).subscribe({
+      next: (response) => console.log(response),
+      error: (error) => console.log(error),
+    });
+  };
+
+  private filterSpecialists = (specialityId: string) => {
+    this.filteredSpecialists = this.specialists.filter(
+      (specialist) => specialist.speciality_id == specialityId
+    );
+  };
+
+  private listenSpecialityChange = () => {
+    this.form.get('speciality_id').valueChanges.subscribe({
+      next: (response) => this.filterSpecialists(response),
       error: (error) => console.log(error),
     });
   };

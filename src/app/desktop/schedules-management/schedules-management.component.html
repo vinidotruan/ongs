@@ -10,17 +10,17 @@
                 >Escolha as especialidades</label
               >
               <select
-                name=""
-                id=""
+                name="specialities"
+                id="specialities"
                 class="form-select"
                 multiple
-                formControlName="specialists_ids"
+                formControlName="speciality_id"
               >
                 <option
-                  [value]="specialist.id"
-                  *ngFor="let specialist of specialists"
+                  [value]="speciality.id"
+                  *ngFor="let speciality of specialities"
                 >
-                  {{ specialist.name }}
+                  {{ speciality.name }}
                 </option>
               </select>
             </div>
@@ -53,11 +53,11 @@
             <div class="mb-3 w-100">
               <label for="email" class="form-label">Intervalo</label>
               <input
-                type="time"
+                type="number"
                 class="form-control"
                 id="interval"
                 aria-describedby="interval"
-                formControlName="interval"
+                formControlName="duration"
               />
             </div>
           </div>
@@ -75,9 +75,9 @@
               >
                 <option
                   [value]="specialist.id"
-                  *ngFor="let specialist of specialists"
+                  *ngFor="let specialist of filteredSpecialists"
                 >
-                  {{ specialist.name }}
+                  {{ specialist.user.name }}
                 </option>
               </select>
             </div>
@@ -150,7 +150,9 @@
             </div>
           </div>
           <div class="col-6 d-flex justify-content-center align-items-end">
-            <button class="btn btn-primary w-75">Cadastrar</button>
+            <button class="btn btn-primary w-75" (click)="createSchedule()">
+              Cadastrar
+            </button>
           </div>
         </div>
       </form>

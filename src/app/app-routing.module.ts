@@ -11,6 +11,57 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
   {
+    path: 'desktop',
+    loadChildren: () =>
+      import('./desktop/desktop.module').then((m) => m.DesktopModule),
+  },
+  {
+    path: 'mobile',
+    children: [
+      {
+        path: 'home',
+        pathMatch: 'full',
+        component: HomeComponent,
+        data: { animation: 'homePage' },
+      },
+
+      {
+        path: 'appointments/new',
+        component: AppointmentCreateComponent,
+        canActivate: [AuthGuard],
+        data: { animation: 'newAppointmentPage' },
+      },
+      {
+        path: 'appointments',
+        redirectTo: 'appointments/new',
+      },
+      {
+        path: 'pets',
+        component: PetsListComponent,
+        canActivate: [AuthGuard],
+        data: { animation: 'petsList' },
+      },
+      {
+        path: 'pets/create',
+        component: PetsFormComponent,
+        canActivate: [AuthGuard],
+        data: { animation: 'petForm' },
+      },
+      {
+        path: 'pets/:petId',
+        component: PetsFormComponent,
+        canActivate: [AuthGuard],
+        data: { animation: 'petForm' },
+      },
+      {
+        path: 'logout',
+        component: LogoutComponent,
+        canActivate: [AuthGuard],
+        data: { animation: 'logoutPage' },
+      },
+    ],
+  },
+  {
     path: 'login',
     component: LoginComponent,
     data: { animation: 'loginPage' },
@@ -20,50 +71,7 @@ const routes: Routes = [
     component: SignUpComponent,
     data: { animation: 'signupPage' },
   },
-  {
-    path: 'home',
-    component: HomeComponent,
-    data: { animation: 'homePage' },
-  },
-  {
-    path: 'desktop',
-    loadChildren: () =>
-      import('./desktop/desktop.module').then((m) => m.DesktopModule),
-  },
-  {
-    path: 'appointments/new',
-    component: AppointmentCreateComponent,
-    canActivate: [AuthGuard],
-    data: { animation: 'newAppointmentPage' },
-  },
-  {
-    path: 'appointments',
-    redirectTo: 'appointments/new',
-  },
-  {
-    path: 'pets',
-    component: PetsListComponent,
-    canActivate: [AuthGuard],
-    data: { animation: 'petsList' },
-  },
-  {
-    path: 'pets/create',
-    component: PetsFormComponent,
-    canActivate: [AuthGuard],
-    data: { animation: 'petForm' },
-  },
-  {
-    path: 'pets/:petId',
-    component: PetsFormComponent,
-    canActivate: [AuthGuard],
-    data: { animation: 'petForm' },
-  },
-  {
-    path: 'logout',
-    component: LogoutComponent,
-    canActivate: [AuthGuard],
-    data: { animation: 'logoutPage' },
-  },
+
   {
     path: '',
     redirectTo: 'login',

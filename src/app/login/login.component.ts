@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '@shared/services/auth.service';
 import { User } from '@shared/services/user';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private deviceService: DeviceDetectorService
   ) {
     this.form = this.initForm();
   }
@@ -34,7 +36,11 @@ export class LoginComponent implements OnInit {
         this.authService.setCurrentUser(
           new User().deserialize(response.data.user)
         );
-        this.router.navigate(['/home']);
+
+        const url = this.deviceService.isDesktop()
+          ? ['/desktop/home']
+          : ['/mobile/home'];
+        this.router.navigate(url);
       },
       error: (error) => (this.error = error),
     });

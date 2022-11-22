@@ -2,6 +2,8 @@ import { BaseModel } from '@models/base-model';
 import { Pet } from '@models/pet';
 import { AvailableDate } from '@models/available-date';
 import { Ong } from '@models/ong';
+import { Speciality } from '@models/speciality';
+
 export class User extends BaseModel {
   public name: string;
   public phone: string;
@@ -11,6 +13,7 @@ export class User extends BaseModel {
   public email_verified_at: string;
   public pets?: Pet[];
   public schedules?: AvailableDate[];
+  public specialities?: Speciality[];
   public ongs?: Ong[];
 
   public isSpecialist = (): boolean => {
@@ -30,6 +33,28 @@ export class User extends BaseModel {
 
     input.ongs = input.ongs
       ? input.ongs.map((ong) => new Ong().deserialize(ong))
+      : [];
+
+    input.specialities = input.specialities
+      ? input.specialities.map((speciality) =>
+          new Speciality().deserialize(speciality)
+        )
+      : [];
+
+    Object.assign(this, input);
+    return this;
+  }
+}
+
+export class UserSpeciality extends BaseModel {
+  public speciality_id: string;
+  public user_id: string;
+
+  public user?: User;
+
+  public override deserialize(input: any): this {
+    input.user = input.user
+      ? input.user.map((user) => new User().deserialize(user))
       : [];
 
     Object.assign(this, input);

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OngService } from '@shared/services/ong.service';
 import { AuthService } from '@shared/services/auth.service';
-import { User } from '@shared/services/user';
+import { User, UserSpeciality } from '@shared/services/user';
 import { AvailableDate } from '@models/available-date';
 import { allMonthsObject } from '@shared/helpers/calendar-helper';
 
@@ -11,7 +11,7 @@ import { allMonthsObject } from '@shared/helpers/calendar-helper';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public specialists: User[];
+  public specialists: UserSpeciality[];
   public availableDays = JSON.parse(JSON.stringify(allMonthsObject));
   constructor(
     private ongService: OngService,
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
 
   private getSpecialists = (ong: string) => {
     this.ongService.getSpecialists(ong).subscribe({
-      next: ({ data }: { data: User[] }) => {
+      next: ({ data }: { data: UserSpeciality[] }) => {
         this.specialists = data;
         this.getAvailablesDatesByUser();
       },
@@ -36,7 +36,8 @@ export class HomeComponent implements OnInit {
   };
 
   private getAvailablesDatesByUser = () => {
-    this.specialists.map(({ schedules }) => this.getAvailableDates(schedules));
+    return [];
+    // this.specialists.map(({ schedules }) => this.getAvailableDates(schedules));
   };
 
   private getAvailableDates = (dates: AvailableDate[]) => {

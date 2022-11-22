@@ -8,21 +8,23 @@ import { NavigationService } from '@shared/services/navigation.service';
   styleUrls: ['./bottom-bar.component.scss'],
 })
 export class BottomBarComponent implements OnInit {
+  public denyListUrls = ['desktop', 'login'];
   public navigationItems = [
-    { path: '/pets', icon: 'cruelty_free' },
-    { path: '/home', icon: 'home', active: ['/home', '/appointments/'] },
-    { path: '/appointments', icon: 'calendar_month' },
-    { path: '/logout', icon: 'settings' },
+    { path: '/mobile/pets', icon: 'cruelty_free' },
+    { path: '/mobile/home', icon: 'home', active: ['/home', '/appointments/'] },
+    { path: '/mobile/appointments', icon: 'calendar_month' },
+    { path: '/mobile/logout', icon: 'settings' },
   ];
 
   constructor(
-    private authService: AuthService,
-    private navigationService: NavigationService
+    public authService: AuthService,
+    public navigationService: NavigationService
   ) {}
 
   ngOnInit(): void {}
 
   public show = (): boolean =>
     this.authService.isLogged() &&
-    !this.navigationService.currentUrl?.includes('desktop');
+    !this.denyListUrls.includes(this.navigationService.currentUrl) &&
+    this.navigationService.currentUrl !== undefined;
 }

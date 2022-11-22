@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-12">
+    <section>
+      <h2>Lista de médicos</h2>
+      <div
+        class="row list p-2 m-2 shadow-sm rounded d-flex align-items-center"
+        *ngFor="let specialist of specialists"
+      >
+        <div class="col-3">{{ specialist.name }}</div>
+        <div class="col-3">{{ specialist.email }}</div>
+        <div class="col-3">
+          <span
+            class="badge bg-warning mx-2"
+            *ngFor="let speciality of specialist.specialities"
+          >
+            {{ speciality.name }}
+          </span>
+        </div>
+        <div class="col-3">
+          <button
+            class="btn btn-primary"
+            (click)="attachSpecialist(specialist, 'attach')"
+            *ngIf="!hasRelation(specialist); else withOutSpecialist"
+          >
+            Adicionar
+          </button>
+          <ng-template #withOutSpecialist>
+            <button
+              class="btn btn-danger"
+              (click)="attachSpecialist(specialist, 'dettach')"
+            >
+              Remover
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
