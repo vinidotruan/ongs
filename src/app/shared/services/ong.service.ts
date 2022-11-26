@@ -25,7 +25,7 @@ export class OngService {
   getSpecialists = (ong): Observable<ApiResponse<UserSpeciality[]>> => {
     const request = {
       path: `/ongs/${ong}/specialists`,
-      deserializeAs: User,
+      deserializeAs: UserSpeciality,
     };
 
     return this.apiService.get<UserSpeciality[]>(request);

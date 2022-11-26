@@ -13,6 +13,14 @@
         padding: 1rem;
         color: white;
       }
+
+      h3 {
+        background-color: $primary !important;
+        border-radius: 15px;
+        padding: 0.8rem;
+        color: white;
+        margin: 5px 0 !important;
+      }
     }
   }
 }

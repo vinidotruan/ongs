@@ -1,36 +1,66 @@
 <div class="row" *ngIf="hasSomeDate()">
+  {{ filteredAvailableDays | json }}
   <div class="col-8">
     <app-calendar
       [classes]="'specialist-calendar'"
-      [availableDates]="availableDays"
+      [availableDates]="filteredAvailableDays"
       (dateSelected)="click()"
     ></app-calendar>
   </div>
   <div class="col-4 min-vh-100">
     <section class="filter rounded min-vh-50">
       <h2>Filtros</h2>
-      <h3>Médicos</h3>
-      <div class="row ms-0 w-100">
-        <div
-          class="col-12 mt-2 bg-primary p-3 rounded"
-          *ngFor="let filteredSpecialist of filterSpecialistList"
-        >
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="specialist_{{ filteredSpecialist.id }}"
-              [value]="filteredSpecialist.id"
-            />
-            <label
-              class="form-check-label fw-bold text-white"
-              for="specialist_{{ filteredSpecialist.id }}"
-            >
-              {{ filteredSpecialist.name }}
-            </label>
+      <ng-container>
+        <h3>Médicos</h3>
+        <div class="row ms-0 w-100">
+          <div
+            class="col-12 mt-2 bg-primary p-3 rounded"
+            *ngFor="let filteredSpecialist of filterSpecialistList"
+          >
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="specialist_{{ filteredSpecialist.id }}"
+                [value]="filteredSpecialist.id"
+                (change)="
+                  filterCalendarBy('specialist', filteredSpecialist.id, $event)
+                "
+              />
+              <label
+                class="form-check-label fw-bold text-white"
+                for="specialist_{{ filteredSpecialist.id }}"
+              >
+                {{ filteredSpecialist.name }}
+              </label>
+            </div>
           </div>
         </div>
-      </div>
+      </ng-container>
+      <ng-container>
+        <h3>Especialidades</h3>
+        <div class="row ms-0 w-100">
+          <div
+            class="col-12 mt-2 bg-primary p-3 rounded"
+            *ngFor="let filteredSpecialist of filterSpecialitieList"
+          >
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="specialist_{{ filteredSpecialist.id }}"
+                [value]="filteredSpecialist.id"
+              />
+              <label
+                class="form-check-label fw-bold text-white"
+                for="specialist_{{ filteredSpecialist.id }}"
+              >
+                {{ filteredSpecialist.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </section>
   </div>
 </div>

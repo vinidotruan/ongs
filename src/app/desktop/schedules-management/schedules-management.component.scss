@@ -3,17 +3,3 @@
 .list {
   background-color: $light;
 }
-
-:host {
-  ::ng-deep {
-    section {
-      h3 {
-        background-color: $primary !important;
-        border-radius: 15px;
-        padding: 0.8rem;
-        color: white;
-        margin: 15px 0;
-      }
-    }
-  }
-}
