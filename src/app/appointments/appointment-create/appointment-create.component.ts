@@ -13,6 +13,7 @@ import { AuthService } from '@shared/services/auth.service';
 import { PetsService } from '@shared/services/pets.service';
 import { SchedulesService } from '@shared/services/schedules.service';
 import { SpecialitiesService } from '@shared/services/specialities.service';
+import { UserSpeciality } from '@shared/services/user';
 
 @Component({
   selector: 'app-appointment-create',
@@ -25,7 +26,7 @@ export class AppointmentCreateComponent implements OnInit {
   public specialities: Speciality[];
   public ongs: Ong[] = [];
   public pets: Pet[] = [];
-  public availablesDates: AvailableDate[];
+  public availablesDates: AvailableDate[] = [new AvailableDate()];
   public availablesDaysOfDate = {};
   public selectedHour: string;
 
@@ -38,6 +39,7 @@ export class AppointmentCreateComponent implements OnInit {
     private router: Router
   ) {
     this.form = new NewAppointmentForm().form();
+    this.form.patchValue({ type_scheduling_id: 1, description: '' });
   }
 
   ngOnInit(): void {
@@ -140,8 +142,9 @@ export class AppointmentCreateComponent implements OnInit {
     this.scheduleService
       .getAvailables(this.form.get('ong_id').getRawValue())
       .subscribe({
-        next: ({ data }: { data: AvailableDate[] }) => {
-          this.availablesDates = data;
+        next: ({ data }: { data: UserSpeciality[] }) => {
+          data.map((u) => this.availablesDates.push(...u.schedules));
+          console.log(this.availablesDates);
         },
         error: (error) => alert(error.message),
       });

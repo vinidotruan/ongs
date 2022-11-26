@@ -13,6 +13,7 @@
     .ngb-dp-month-name {
       color: $white;
     }
+
     &.specialist-calendar {
       width: 700px;
       .ngb-dp-month {
@@ -22,9 +23,30 @@
         }
         .ngb-dp-week {
           justify-content: space-between;
+
+          &:not(.ngb-dp-weekdays) {
+            margin-top: 10px;
+          }
+        }
+      }
+
+      .ngb-dp-day {
+        color: white;
+        &:not(.disabled) {
+          &:not(.hidden) {
+            background-color: $primary;
+            border-radius: 15px;
+          }
+        }
+
+        &.disabled {
+          .custom-day {
+            color: $gray-900 !important;
+          }
         }
       }
     }
+
     &:not(.specialist-calendar) {
       .ngb-dp-day {
         &:not(.disabled) {
@@ -47,11 +69,11 @@
         }
       }
 
-      &:not(.disabled) {
-        background-color: $primary;
-        color: white;
-        // border-radius: 100%;
-      }
+      // &:not(.disabled) {
+      //   background-color: $primary;
+      //   color: white;
+      //   // border-radius: 100%;
+      // }
     }
 
     .ngb-dp-day > div {

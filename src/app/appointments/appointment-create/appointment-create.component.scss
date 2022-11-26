@@ -18,3 +18,10 @@
     color: #355764;
   }
 }
+
+.hours-list {
+  height: 300px;
+  display: flex;
+  flex-wrap: inherit;
+  overflow-y: auto;
+}

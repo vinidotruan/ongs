@@ -4,6 +4,7 @@ import { ApiResponse } from '@models/responses/api-response';
 import { Scheduling } from '@models/scheduling';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
+import { UserSpeciality } from './user';
 
 @Injectable({
   providedIn: 'root',
@@ -13,14 +14,14 @@ export class SchedulesService {
 
   public getAvailables = (
     ongId: string
-  ): Observable<ApiResponse<AvailableDate[]>> => {
+  ): Observable<ApiResponse<UserSpeciality[]>> => {
     const request = {
       path: '/schedules',
       params: { ong_id: ongId },
-      deserializeAs: AvailableDate,
+      deserializeAs: UserSpeciality,
     };
 
-    return this.apiService.get<AvailableDate[]>(request);
+    return this.apiService.get<UserSpeciality[]>(request);
   };
 
   public makeScheduling = (scheduling: Scheduling) => {

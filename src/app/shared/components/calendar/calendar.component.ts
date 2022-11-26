@@ -18,7 +18,6 @@ import {
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent implements OnInit, OnChanges {
   @ViewChild(NgbDatepicker, { static: true }) datepicker: NgbDatepicker;
@@ -30,7 +29,10 @@ export class CalendarComponent implements OnInit, OnChanges {
 
   public firstDayOfWeek = 0;
 
-  constructor(public i18n: NgbDatepickerI18n) {}
+  constructor(public i18n: NgbDatepickerI18n) {
+    this.isDisabled = (date: NgbDate, current: { month: number }) =>
+      !this.availableDates[current.month].includes(date.day);
+  }
 
   ngOnInit(): void {}
 

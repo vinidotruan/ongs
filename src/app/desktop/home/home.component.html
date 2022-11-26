@@ -1,9 +1,36 @@
-<div class="row">
-  <div class="col-12">
+<div class="row" *ngIf="hasSomeDate()">
+  <div class="col-8">
     <app-calendar
       [classes]="'specialist-calendar'"
       [availableDates]="availableDays"
       (dateSelected)="click()"
     ></app-calendar>
+  </div>
+  <div class="col-4 min-vh-100">
+    <section class="filter rounded min-vh-50">
+      <h2>Filtros</h2>
+      <h3>Médicos</h3>
+      <div class="row ms-0 w-100">
+        <div
+          class="col-12 mt-2 bg-primary p-3 rounded"
+          *ngFor="let filteredSpecialist of filterSpecialistList"
+        >
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="specialist_{{ filteredSpecialist.id }}"
+              [value]="filteredSpecialist.id"
+            />
+            <label
+              class="form-check-label fw-bold text-white"
+              for="specialist_{{ filteredSpecialist.id }}"
+            >
+              {{ filteredSpecialist.name }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
