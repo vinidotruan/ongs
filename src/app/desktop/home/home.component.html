@@ -1,5 +1,4 @@
 <div class="row" *ngIf="hasSomeDate()">
-  {{ filteredAvailableDays | json }}
   <div class="col-8">
     <app-calendar
       [classes]="'specialist-calendar'"
@@ -24,7 +23,7 @@
                 id="specialist_{{ filteredSpecialist.id }}"
                 [value]="filteredSpecialist.id"
                 (change)="
-                  filterCalendarBy('specialist', filteredSpecialist.id, $event)
+                  filterCalendarBy('specialists', filteredSpecialist.id, $event)
                 "
               />
               <label
@@ -50,6 +49,13 @@
                 type="checkbox"
                 id="specialist_{{ filteredSpecialist.id }}"
                 [value]="filteredSpecialist.id"
+                (change)="
+                  filterCalendarBy(
+                    'specialities',
+                    filteredSpecialist.id,
+                    $event
+                  )
+                "
               />
               <label
                 class="form-check-label fw-bold text-white"

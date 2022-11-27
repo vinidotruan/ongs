@@ -4,6 +4,13 @@ import { UserSpeciality } from '@shared/services/user';
 import { AvailableDate } from '@models/available-date';
 import { allMonthsObject } from '@shared/helpers/calendar-helper';
 import { Ong } from '@models/ong';
+import { FormGroup, FormArray } from '@angular/forms';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
+
+const dict = {
+  specialists: 'user_id',
+  specialities: 'speciality_id',
+};
 
 @Component({
   selector: 'app-home',
@@ -12,12 +19,17 @@ import { Ong } from '@models/ong';
 })
 export class HomeComponent implements OnInit {
   public specialists: UserSpeciality[];
-  public filterSpecialistList: any;
-  public filterSpecialitieList: any;
-  public defaultDays = JSON.parse(JSON.stringify(allMonthsObject));
   public availableDays = JSON.parse(JSON.stringify(allMonthsObject));
   public filteredAvailableDays = JSON.parse(JSON.stringify(allMonthsObject));
   public ong: Ong;
+
+  public filterSpecialistList: any;
+  public filterSpecialitieList: any;
+
+  private filters = {
+    specialists: [],
+    specialities: [],
+  };
 
   constructor(private ongService: OngService) {}
 
@@ -40,36 +52,41 @@ export class HomeComponent implements OnInit {
 
   public filterCalendarBy = (label: string, id: string, { target }) => {
     const { checked } = target;
+    const key = dict[label];
+    this.resetFilteredAvailableDaysList();
 
-    const dict = {
-      specialist: 'user_id',
-      speciality: 'speciality_id',
-    };
+    if (!checked) {
+      const index = this.filters[label].indexOf(id);
+      this.filters[label].splice(index, 1);
 
-    label = dict[label];
+      if (!this.hasSomeFilter()) {
+        this.filteredAvailableDays = JSON.parse(
+          JSON.stringify(this.availableDays)
+        );
+      }
+    } else {
+      this.filters[label].push(id);
 
-    this.specialists
-      .filter((specialist) => specialist[label] == id)
-      .map(({ schedules }) => {
-        console.log(this.defaultDays);
-        // const dates = this.getAvailableDates(schedules);
-        // const uniqueDates = this.getUniqueArrayOfDates(dates);
-        // console.log(uniqueDates);
-        // this.setFilteredAvailableDaysList(uniqueDates);
-      });
+      this.specialists
+        .filter((specialist) => this.filters[label].includes(specialist[key]))
+        .map(({ schedules }) => {
+          const dates = this.getAvailableDates(
+            schedules,
+            this.filteredAvailableDays
+          );
 
-    // checked
-    //   ? this.specialists
-    //       .filter((specialist) => specialist[label] == id)
-    //       .map(({ schedules }) => this.getAvailableDates(schedules))
-    //   : this.resetFilteredAvailableDaysList(this.availableDays);
+          this.getUniqueArrayOfDates(dates, this.filteredAvailableDays);
+        });
+    }
   };
+  private hasSomeFilter = (): boolean =>
+    Object.values(this.filters).some((filter: []) => filter.length);
 
   private getSpecialists = (ong: string) => {
     this.ongService.getSpecialists(ong).subscribe({
       next: ({ data }: { data: UserSpeciality[] }) => {
         this.specialists = data;
-        this.getAvailablesDatesByUser(data);
+        this.getAvailablesDatesByUser(data, this.availableDays);
 
         this.filterSpecialistList = this.getUniqueSpecialistsList(data);
         this.filterSpecialitieList = this.getUniqueSpecialitiesList(data);
@@ -78,10 +95,13 @@ export class HomeComponent implements OnInit {
     });
   };
 
-  private getAvailablesDatesByUser = (specialists: UserSpeciality[]) =>
+  private getAvailablesDatesByUser = (
+    specialists: UserSpeciality[],
+    arrOfDates
+  ) =>
     specialists.map(({ schedules }) => {
-      const dates = this.getAvailableDates(schedules, this.defaultDays);
-      const uniqueDates = this.getUniqueArrayOfDates(dates);
+      const dates = this.getAvailableDates(schedules, arrOfDates);
+      const uniqueDates = this.getUniqueArrayOfDates(dates, arrOfDates);
 
       this.setAvailableDays(uniqueDates);
       this.setFilteredAvailableDaysList(uniqueDates);
@@ -95,8 +115,11 @@ export class HomeComponent implements OnInit {
     return arr;
   };
 
-  private getUniqueArrayOfDates = (dates: AvailableDate[]): AvailableDate[] => {
-    for (const [key] of Object.entries(this.availableDays)) {
+  private getUniqueArrayOfDates = (
+    dates: AvailableDate[],
+    arrOfDates
+  ): AvailableDate[] => {
+    for (const [key] of Object.entries(arrOfDates)) {
       dates[key] = [...new Set(dates[key])];
     }
     return dates;
@@ -112,10 +135,8 @@ export class HomeComponent implements OnInit {
     this.filteredAvailableDays = availabledDaysList;
   };
 
-  private resetFilteredAvailableDaysList = (
-    availabledDaysList: AvailableDate[]
-  ): void => {
-    this.filteredAvailableDays = JSON.parse(JSON.stringify(this.availableDays));
+  private resetFilteredAvailableDaysList = (): void => {
+    this.filteredAvailableDays = JSON.parse(JSON.stringify(allMonthsObject));
   };
 
   private getUniqueSpecialistsList = (specialists: UserSpeciality[]): any => {
