@@ -70,4 +70,16 @@ export class UserSpeciality extends BaseModel {
   }
 
   public hasSomeSchedule = () => this.schedules && this.schedules.length > 0;
+
+  public hasScheduleOn = (date: Date) =>
+    this.schedules.some(
+      (schedule) =>
+        new Date(`${schedule.date} EDT`).getTime() === date.getTime()
+    );
+
+  public getSchedulesOn = (date: Date) =>
+    this.schedules.filter(
+      (schedule) =>
+        new Date(`${schedule.date} EDT`).getTime() === date.getTime()
+    );
 }

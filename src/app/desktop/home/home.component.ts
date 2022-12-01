@@ -57,22 +57,18 @@ export class HomeComponent implements OnInit {
   }
 
   public filterSpecialistsByDate = (event: any): void => {
-    const date = new Date(`${event.year}-${event.month}-${event.day}`);
+    const date = new Date(`${event.year}-${event.month}-${event.day} EDT`);
 
-    const specialistsFiltered = this.specialists
-      .map(({ schedules, ...others }) => {
-        const filteredSchedules = schedules.filter(
-          (availableDate: AvailableDate) =>
-            new Date(availableDate.date).getTime() === date.getTime()
-        );
-        return {
-          ...others,
-          schedules: filteredSchedules,
-        };
-      })
-      .filter((product) => product.schedules.length > 0);
+    const specialistsToFilter = JSON.parse(
+      JSON.stringify(this.specialists)
+    ).map((specialist) => new UserSpeciality().deserialize(specialist));
 
-    this.specialistsFiltered = [...specialistsFiltered];
+    this.specialistsFiltered = specialistsToFilter.filter(
+      (specialist: UserSpeciality) =>
+        (specialist.schedules = specialist.hasScheduleOn(date)
+          ? specialist.getSchedulesOn(date)
+          : null)
+    );
   };
 
   public hasSomeFilter = (): boolean =>

@@ -18,11 +18,15 @@ export class Scheduling extends BaseModel {
   public type_scheduling?: any;
 
   public override deserialize(input: any): this {
-    input.pet = new Pet().deserialize(input.pet);
-    input.schedule = new AvailableDate().deserialize(input.schedule);
-    input.ong = new Ong().deserialize(input.ong);
-    input.date = new Date(input.date).toLocaleDateString();
+    input.pet = input.pet ? new Pet().deserialize(input.pet) : new Pet();
+    input.schedule = input.schedule
+      ? new AvailableDate().deserialize(input.schedule)
+      : new AvailableDate();
+    input.ong = input.ong ? new Ong().deserialize(input.ong) : new Ong();
+    input.date = input.date ? new Date(input.date).toLocaleDateString() : '';
+
     Object.assign(this, input);
+
     return this;
   }
 }
