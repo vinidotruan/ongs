@@ -16,6 +16,8 @@
 
     &.specialist-calendar {
       width: 700px;
+      border: 1px solid $gray-300 !important;
+
       .ngb-dp-month {
         width: 100%;
         .ngb-dp-week.ngb-dp-weekdays {
