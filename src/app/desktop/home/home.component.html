@@ -1,72 +1,185 @@
-<div class="row" *ngIf="hasSomeDate()">
-  <div class="col-8">
+<div class="row mt-4" *ngIf="hasSomeDate()">
+  <div
+    class="col-8 d-flex align-items-center justify-content-center flex-column"
+  >
+    <section class="w-100">
+      <h2>Datas Disponíveis</h2>
+    </section>
     <app-calendar
-      [classes]="'specialist-calendar'"
+      [classes]="'specialist-calendar mt-2'"
       [availableDates]="filteredAvailableDays"
-      (dateSelected)="click()"
+      (dateSelected)="filterSpecialistsByDate($event)"
     ></app-calendar>
+    <div class="row w-100">
+      <ng-container
+        *ngFor="let specialistFiltered of specialistsFiltered; let i = index"
+      >
+        <div class="col-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title text-center">
+                <h5
+                  class="fw-bold bg-primary text-white rounded d-flex flex-column justify-content-between"
+                >
+                  <span>{{ specialistFiltered.schedules[0].date }}</span>
+                  <span>
+                    {{ specialistFiltered.user.name }}
+                  </span>
+                  <span class="badge bg-warning">
+                    {{ specialistFiltered.speciality.name }}
+                  </span>
+                </h5>
+              </div>
+              <div class="card-text d-flex flex-column hours-list">
+                <ng-container
+                  *ngFor="let schedule of specialistFiltered.schedules"
+                >
+                  <span class="fw-bold rounded border p-2 mt-2">
+                    {{ schedule.start_time }} até as
+                    {{ schedule.end_time }}
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
   </div>
-  <div class="col-4 min-vh-100">
+  <div class="col-4">
     <section class="filter rounded min-vh-50">
-      <h2>Filtros</h2>
+      <h2 class="text-center">
+        Filtros
+
+        <button
+          class="btn btn-warning fw-bold"
+          *ngIf="hasSomeFilter()"
+          (click)="clearFilters()"
+        >
+          Limpar Filtros
+        </button>
+      </h2>
       <ng-container>
-        <h3>Médicos</h3>
-        <div class="row ms-0 w-100">
-          <div
-            class="col-12 mt-2 bg-primary p-3 rounded"
-            *ngFor="let filteredSpecialist of filterSpecialistList"
-          >
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="specialist_{{ filteredSpecialist.id }}"
-                [value]="filteredSpecialist.id"
-                (change)="
-                  filterCalendarBy('specialists', filteredSpecialist.id, $event)
-                "
-              />
-              <label
-                class="form-check-label fw-bold text-white"
-                for="specialist_{{ filteredSpecialist.id }}"
-              >
-                {{ filteredSpecialist.name }}
-              </label>
+        <div class="filter-wrapper bg-primary rounded px-2 pb-2">
+          <h3>Médicos</h3>
+
+          <div class="row ms-0 w-100">
+            <div
+              class="col-12 my-1"
+              *ngFor="let specialistToFilter of specialistsToFilter"
+            >
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="specialist_{{ specialistToFilter.id }}"
+                  [(ngModel)]="specialistToFilter.checked"
+                  [value]="specialistToFilter.id"
+                  (change)="
+                    filterCalendarBy(
+                      'specialists',
+                      specialistToFilter.id,
+                      $event
+                    )
+                  "
+                />
+                <label
+                  class="form-check-label text-white"
+                  for="specialist_{{ specialistToFilter.id }}"
+                >
+                  {{ specialistToFilter.name }}
+                </label>
+              </div>
             </div>
           </div>
         </div>
       </ng-container>
+
       <ng-container>
-        <h3>Especialidades</h3>
-        <div class="row ms-0 w-100">
-          <div
-            class="col-12 mt-2 bg-primary p-3 rounded"
-            *ngFor="let filteredSpecialist of filterSpecialitieList"
-          >
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="specialist_{{ filteredSpecialist.id }}"
-                [value]="filteredSpecialist.id"
-                (change)="
-                  filterCalendarBy(
-                    'specialities',
-                    filteredSpecialist.id,
-                    $event
-                  )
-                "
-              />
-              <label
-                class="form-check-label fw-bold text-white"
-                for="specialist_{{ filteredSpecialist.id }}"
-              >
-                {{ filteredSpecialist.name }}
-              </label>
+        <div class="filter-wrapper bg-primary rounded px-2 pb-2">
+          <h3>Especialidades</h3>
+          <div class="row ms-0 w-100">
+            <div
+              class="col-12 my-1"
+              *ngFor="let filteredSpecialist of specialistiesToFilter"
+            >
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="specialist_{{ filteredSpecialist.id }}"
+                  [(ngModel)]="filteredSpecialist.checked"
+                  [value]="filteredSpecialist.id"
+                  (change)="
+                    filterCalendarBy(
+                      'specialities',
+                      filteredSpecialist.id,
+                      $event
+                    )
+                  "
+                />
+                <label
+                  class="form-check-label text-white"
+                  for="specialist_{{ filteredSpecialist.id }}"
+                >
+                  {{ filteredSpecialist.name }}
+                </label>
+              </div>
             </div>
           </div>
         </div>
       </ng-container>
+    </section>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-12">
+    <section>
+      <h2>
+        Próximos Agendamentos
+        <span class="fw-light">
+          ({{ todayDate | date : "dd/MM/yyyy" }} -
+          {{ sevenDaysDate(todayDate) | date : "dd/MM/yyyy" }})
+        </span>
+      </h2>
+      <div class="row mt-4">
+        <ng-container
+          *ngFor="let nextScheduleSpecialist of nextSchedules; let i = index"
+        >
+          <div
+            class="col-4"
+            *ngIf="specialistHasSchedule(nextScheduleSpecialist)"
+          >
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">
+                  <h5 class="fw-bold">
+                    {{ nextScheduleSpecialist[0].user.name }}
+                  </h5>
+                </div>
+                <ng-container *ngFor="let specialist of nextScheduleSpecialist">
+                  <ng-container *ngFor="let schedule of specialist.schedules">
+                    <div class="card-text">
+                      <p>
+                        <span class="badge bg-warning mx-2">
+                          {{ specialist.speciality.name }}
+                        </span>
+
+                        {{ schedule.date | date : "dd/MM/yyyy" }}
+                        <span class="fw-bold">
+                          às
+                          {{ schedule.initial_hour() }} até as
+                          {{ schedule.final_hour() }}
+                        </span>
+                      </p>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </section>
   </div>
 </div>

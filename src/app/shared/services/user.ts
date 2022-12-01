@@ -68,4 +68,6 @@ export class UserSpeciality extends BaseModel {
     Object.assign(this, input);
     return this;
   }
+
+  public hasSomeSchedule = () => this.schedules && this.schedules.length > 0;
 }

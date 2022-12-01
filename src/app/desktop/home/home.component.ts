@@ -4,8 +4,9 @@ import { UserSpeciality } from '@shared/services/user';
 import { AvailableDate } from '@models/available-date';
 import { allMonthsObject } from '@shared/helpers/calendar-helper';
 import { Ong } from '@models/ong';
-import { FormGroup, FormArray } from '@angular/forms';
-import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
+import { ApiResponse } from '@models/responses/api-response';
+import { map } from 'rxjs';
+import { groupBy } from '@shared/helpers/utils';
 
 const dict = {
   specialists: 'user_id',
@@ -22,9 +23,18 @@ export class HomeComponent implements OnInit {
   public availableDays = JSON.parse(JSON.stringify(allMonthsObject));
   public filteredAvailableDays = JSON.parse(JSON.stringify(allMonthsObject));
   public ong: Ong;
+  public todayDate = new Date();
+  public sevenDaysDate = (date: Date): Date => {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + 7);
+    return newDate;
+  };
 
-  public filterSpecialistList: any;
-  public filterSpecialitieList: any;
+  public specialistsToFilter: any;
+  public specialistiesToFilter: any;
+  public specialistsFiltered: any = [];
+
+  public nextSchedules: UserSpeciality[][];
 
   private filters = {
     specialists: [],
@@ -39,20 +49,45 @@ export class HomeComponent implements OnInit {
         if (response.id) {
           this.ong = response;
           this.getSpecialists(response.id);
+          this.getNextSchedules(response.id);
         }
       },
       error: (error) => console.log(error),
     });
   }
 
-  click = () => console.log('click');
+  public filterSpecialistsByDate = (event: any): void => {
+    const date = new Date(`${event.year}-${event.month}-${event.day}`);
+
+    const specialistsFiltered = this.specialists
+      .map(({ schedules, ...others }) => {
+        const filteredSchedules = schedules.filter(
+          (availableDate: AvailableDate) =>
+            new Date(availableDate.date).getTime() === date.getTime()
+        );
+        return {
+          ...others,
+          schedules: filteredSchedules,
+        };
+      })
+      .filter((product) => product.schedules.length > 0);
+
+    this.specialistsFiltered = [...specialistsFiltered];
+  };
+
+  public hasSomeFilter = (): boolean =>
+    Object.values(this.filters).some((filter: []) => filter.length);
 
   public hasSomeDate = () =>
     Object.values(this.availableDays).some((months: []) => months.length);
 
+  public specialistHasSchedule = (specialists: UserSpeciality[]): boolean =>
+    specialists.some((specialist) => specialist.hasSomeSchedule());
+
   public filterCalendarBy = (label: string, id: string, { target }) => {
     const { checked } = target;
     const key = dict[label];
+
     this.resetFilteredAvailableDaysList();
 
     if (!checked) {
@@ -60,9 +95,7 @@ export class HomeComponent implements OnInit {
       this.filters[label].splice(index, 1);
 
       if (!this.hasSomeFilter()) {
-        this.filteredAvailableDays = JSON.parse(
-          JSON.stringify(this.availableDays)
-        );
+        this.clearFilters();
       }
     } else {
       this.filters[label].push(id);
@@ -79,8 +112,20 @@ export class HomeComponent implements OnInit {
         });
     }
   };
-  private hasSomeFilter = (): boolean =>
-    Object.values(this.filters).some((filter: []) => filter.length);
+
+  public clearFilters = () => {
+    this.filteredAvailableDays = JSON.parse(JSON.stringify(this.availableDays));
+
+    this.specialistsToFilter.map((specialist) => (specialist.checked = false));
+    this.specialistiesToFilter.map(
+      (speciality) => (speciality.checked = false)
+    );
+
+    this.filters = {
+      specialists: [],
+      specialities: [],
+    };
+  };
 
   private getSpecialists = (ong: string) => {
     this.ongService.getSpecialists(ong).subscribe({
@@ -88,8 +133,8 @@ export class HomeComponent implements OnInit {
         this.specialists = data;
         this.getAvailablesDatesByUser(data, this.availableDays);
 
-        this.filterSpecialistList = this.getUniqueSpecialistsList(data);
-        this.filterSpecialitieList = this.getUniqueSpecialitiesList(data);
+        this.specialistsToFilter = this.getUniqueSpecialistsList(data);
+        this.specialistiesToFilter = this.getUniqueSpecialitiesList(data);
       },
       error: (error) => console.log(error),
     });
@@ -143,6 +188,7 @@ export class HomeComponent implements OnInit {
     const specialistsArr = specialists.map((specialist) => ({
       name: specialist.user.name,
       id: specialist.user_id,
+      checked: null,
     }));
 
     return [...new Map(specialistsArr.map((item) => [item.id, item])).values()];
@@ -152,10 +198,32 @@ export class HomeComponent implements OnInit {
     const specialitiesArr = specialists.map((specialist) => ({
       name: specialist.speciality.name,
       id: specialist.speciality_id,
+      checked: false,
     }));
 
     return [
       ...new Map(specialitiesArr.map((item) => [item.id, item])).values(),
     ];
+  };
+
+  private getNextSchedules = (ong) => {
+    this.ongService
+      .getNextSchedules(ong)
+      .pipe(
+        map((response: ApiResponse<UserSpeciality[][]>) => {
+          const { data } = response;
+
+          return Object.values(data).map((specialists) =>
+            specialists.map((specialist) =>
+              new UserSpeciality().deserialize(specialist)
+            )
+          );
+        })
+      )
+      .subscribe({
+        next: (response: UserSpeciality[][]) => {
+          this.nextSchedules = response;
+        },
+      });
   };
 }

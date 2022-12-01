@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
     {
       path: '/desktop/management',
       icon: 'calendar_month',
-      text: 'Editar Agendas',
+      text: 'Agendas',
     },
     {
       path: '/desktop/specialist/register',

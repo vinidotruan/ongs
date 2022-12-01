@@ -62,19 +62,23 @@ export class SchedulesManagementComponent implements OnInit {
     });
   };
 
-  private getSpecialities = () => {
+  private getSpecialities = (specialists: UserSpeciality[]) => {
     const specialities = [];
-    this.specialists.map(({ user }) => specialities.push(user.specialities));
-    new Set(...specialities).forEach((speciality) =>
-      this.specialities.push(new Speciality().deserialize(speciality))
-    );
+
+    specialists.map(({ speciality }) => specialities.push(speciality));
+
+    specialities.forEach((speciality) => {
+      if (!this.specialities.find((s) => s.id === speciality.id)) {
+        this.specialities.push(speciality);
+      }
+    });
   };
 
   private getSpecialists = (ong: string) => {
     this.ongService.getSpecialists(ong).subscribe({
       next: ({ data }: { data: UserSpeciality[] }) => {
         this.specialists = data;
-        this.getSpecialities();
+        this.getSpecialities(data);
       },
       error: (error) => console.log(error),
     });
@@ -83,18 +87,11 @@ export class SchedulesManagementComponent implements OnInit {
   private getSchedules = (ong: string) => {
     this.ongService.getSchedules(ong).subscribe({
       next: ({ data }: { data: UserSpeciality[][] }) => {
-        // this.specialistsSchedules = Object.values(data).map((e) =>
-        //   e.map((re) => new UserSpeciality().deserialize(re))
-        // );
-        this.specialistsSchedules = Object.values(data).map((e) =>
-          e.map((re) => {
-            return new UserSpeciality().deserialize(re);
+        this.specialistsSchedules = Object.values(data).map((specialists) =>
+          specialists.map((specialist) => {
+            return new UserSpeciality().deserialize(specialist);
           })
         );
-        console.log(this.specialistsSchedules);
-        // data.forEach((e) => console.log(e));
-        // console.log({ data });
-        // this.specialistsSchedules = data;
       },
       error: (error) => console.log(error),
     });

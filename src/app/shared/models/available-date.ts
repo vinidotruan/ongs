@@ -1,6 +1,5 @@
 import { User } from '@shared/services/user';
 import { BaseModel } from './base-model';
-import { Speciality } from './speciality';
 
 export class AvailableDate extends BaseModel {
   public date: string;

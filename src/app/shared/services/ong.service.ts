@@ -72,4 +72,14 @@ export class OngService {
 
     return this.apiService.get(request);
   };
+
+  public getNextSchedules = (
+    ong: string
+  ): Observable<ApiResponse<UserSpeciality[][]>> => {
+    const request = {
+      path: `/ongs/${ong}/specialists-next-schedules`,
+    };
+
+    return this.apiService.get<UserSpeciality[][]>(request);
+  };
 }
