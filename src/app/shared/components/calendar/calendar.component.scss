@@ -50,8 +50,10 @@
     &:not(.specialist-calendar) {
       .ngb-dp-day {
         &:not(.disabled) {
-          background-color: $primary;
-          border-radius: 100%;
+          &:not(.hidden) {
+            background-color: $primary;
+            border-radius: 100%;
+          }
         }
       }
     }

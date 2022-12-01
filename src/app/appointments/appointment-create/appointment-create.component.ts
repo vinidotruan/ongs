@@ -26,8 +26,8 @@ export class AppointmentCreateComponent implements OnInit {
   public specialities: Speciality[];
   public ongs: Ong[] = [];
   public pets: Pet[] = [];
-  public availablesDates: AvailableDate[] = [new AvailableDate()];
-  public availablesDaysOfDate = {};
+  public availablesDates: AvailableDate[] = [];
+  public availablesDaysOfDate = JSON.parse(JSON.stringify(allMonthsObject));
   public selectedHour: string;
 
   constructor(
