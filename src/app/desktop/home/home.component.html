@@ -10,7 +10,10 @@
       [availableDates]="filteredAvailableDays"
       (dateSelected)="filterSpecialistsByDate($event)"
     ></app-calendar>
-    <div class="row w-100 mt-2">
+    <div class="row w-100 mt-2" *ngIf="specialistsFiltered">
+      <section class="w-100 mb-2">
+        <h2>Horários Disponíveis</h2>
+      </section>
       <ng-container
         *ngFor="let specialistFiltered of specialistsFiltered; let i = index"
       >

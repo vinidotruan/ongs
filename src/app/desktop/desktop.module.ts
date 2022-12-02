@@ -10,6 +10,7 @@ import { SharedModule } from '@shared/shared.module';
 import { SchedulesManagementComponent } from './schedules-management/schedules-management.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './specialist/register/register.component';
+import { CreateComponent } from './specialist/create/create.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RegisterComponent } from './specialist/register/register.component';
     SidebarComponent,
     SchedulesManagementComponent,
     RegisterComponent,
+    CreateComponent,
   ],
   imports: [
     DesktopRoutingModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@shared/services/auth.service';
 import { User } from '@shared/services/user';
 
@@ -27,9 +28,16 @@ export class SidebarComponent implements OnInit {
       text: 'Registrar Médico',
     },
   ];
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.currentUser = this.authService.getCurrentUser();
   }
 
   ngOnInit(): void {}
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () => this.router.navigate(['/login']),
+      error: (error) => console.log(error),
+    });
+  }
 }
