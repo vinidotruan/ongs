@@ -8,7 +8,7 @@ import { Pet } from '@models/pet';
 })
 export class PetCardComponent implements OnInit {
   @Input() pet: Pet;
-  public dogUrl = '/assets/images/dog.png';
+  public dogUrl = 'assets/images/dog.png';
   constructor() {}
 
   ngOnInit(): void {}

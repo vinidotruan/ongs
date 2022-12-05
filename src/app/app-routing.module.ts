@@ -71,7 +71,6 @@ const routes: Routes = [
     component: SignUpComponent,
     data: { animation: 'signupPage' },
   },
-
   {
     path: '',
     redirectTo: 'login',

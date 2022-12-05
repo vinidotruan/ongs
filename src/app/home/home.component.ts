@@ -14,7 +14,7 @@ import { Scheduling } from '@models/scheduling';
 export class HomeComponent implements OnInit {
   public date = new Date().toLocaleDateString();
   public pets: Pet[];
-  public dogUrl = '/assets/images/dog.png';
+  public dogUrl = 'assets/images/dog.png';
   public schedulings: Scheduling[];
 
   constructor(
