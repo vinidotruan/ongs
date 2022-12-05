@@ -28,5 +28,8 @@ export class BottomBarComponent implements OnInit {
   public show = (): boolean =>
     this.authService.isLogged() &&
     this.navigationService.currentUrl !== undefined &&
-    this.deviceService.isMobile();
+    this.deviceService.isMobile() &&
+    !this.denyListUrls.some((url) =>
+      this.navigationService.currentUrl.includes(url)
+    );
 }

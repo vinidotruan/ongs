@@ -8,7 +8,7 @@ import { RegisterComponent } from './specialist/register/register.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'desktop',
     component: DesktopComponent,
     children: [
       {

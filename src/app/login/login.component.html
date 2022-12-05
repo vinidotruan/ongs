@@ -1,8 +1,12 @@
-<div class="d-flex flex-column justify-content-between wrapper container">
+<div
+  class="d-flex flex-column justify-content-between align-items-center wrapper container"
+>
   <div class="row mt-5">
-    <app-logo></app-logo>
+    <div class="col-12">
+      <app-logo></app-logo>
+    </div>
   </div>
-  <div class="row bg-green rounded-top h-50">
+  <div class="row bg-primary rounded-top h-50 w-100">
     <h3 class="text-white align-self-center">Entrar</h3>
     <ngb-alert type="danger" *ngIf="error">
       {{ error.message }}
