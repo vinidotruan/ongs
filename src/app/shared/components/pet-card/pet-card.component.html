@@ -22,7 +22,7 @@
       />
 
       <a
-        [routerLink]="['/pets/', pet?.id]"
+        [routerLink]="[getUrl() + '/pets/', pet?.id]"
         class="btn btn-primary w-100 mt-2 mx-4"
         >Editar</a
       >
