@@ -20,5 +20,6 @@ export class CreateScheduleForm implements ReactiveFormInterface {
         new FormControl(false),
         new FormControl(false),
       ]),
+      sizes_ids: new FormArray([]),
     });
 }

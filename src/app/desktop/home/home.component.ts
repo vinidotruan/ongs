@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { OngService } from '@shared/services/ong.service';
 import { UserSpeciality } from '@shared/services/user';
+import { PetsService } from '@shared/services/pets.service';
 import { AvailableDate } from '@models/available-date';
 import { allMonthsObject } from '@shared/helpers/calendar-helper';
 import { Ong } from '@models/ong';
 import { ApiResponse } from '@models/responses/api-response';
 import { map } from 'rxjs';
-import { groupBy } from '@shared/helpers/utils';
 
 const dict = {
   specialists: 'user_id',
@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
   public specialistsToFilter: any;
   public specialistiesToFilter: any;
   public specialistsFiltered: any = [];
-
   public nextSchedules: UserSpeciality[][];
 
   private filters = {

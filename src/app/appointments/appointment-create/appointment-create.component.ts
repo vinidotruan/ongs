@@ -102,8 +102,15 @@ export class AppointmentCreateComponent implements OnInit {
       .map((date) => this.availablesDaysOfDate[date.month()].push(date.day()));
   };
 
+  isFormValid = (): boolean => {
+    console.log(this.form.controls);
+    return (
+      Object.values(this.form.controls).filter((c) => c.invalid).length === 0
+    );
+  };
+
   public submit = (): void => {
-    this.form.patchValue({ type_scheduling_id: 1, description: 'nada' });
+    this.form.patchValue({ type_scheduling_id: 1 });
     this.scheduleService.makeScheduling(this.form.getRawValue()).subscribe({
       next: () => {
         this.modalService

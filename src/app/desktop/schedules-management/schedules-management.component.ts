@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
 import { CreateScheduleForm } from '@models/forms/create-schedule';
 import { Speciality } from '@models/speciality';
 import { allWeekDaysArray } from '@shared/helpers/calendar-helper';
 import { OngService } from '@shared/services/ong.service';
+import { PetsService } from '@shared/services/pets.service';
 import { SchedulesService } from '@shared/services/schedules.service';
 import { SpecialitiesService } from '@shared/services/specialities.service';
 import { User, UserSpeciality } from '@shared/services/user';
@@ -20,11 +21,13 @@ export class SchedulesManagementComponent implements OnInit {
   public specialistsSchedules: UserSpeciality[][];
   public filteredSpecialists: UserSpeciality[];
   public specialities: Speciality[] = [];
+  public sizes: any[];
   public schedules: any[];
 
   constructor(
     private ongService: OngService,
-    private scheduleService: SchedulesService
+    private scheduleService: SchedulesService,
+    private petService: PetsService
   ) {
     this.ongService.currentOng.subscribe({
       next: (ong) => {
@@ -34,6 +37,12 @@ export class SchedulesManagementComponent implements OnInit {
         }
       },
       error: (error) => console.log(error),
+    });
+
+    this.petService.getAllBreedsSizes().subscribe({
+      next: ({ data }: { data: any[] }) => {
+        this.sizes = data;
+      },
     });
 
     this.listenSpecialityChange();
@@ -61,6 +70,15 @@ export class SchedulesManagementComponent implements OnInit {
       error: (error) => console.log(error),
     });
   };
+
+  public insertOrDeleteSize(sizeId: number) {
+    const formArray = <FormArray>this.form.get('sizes_ids');
+    const index = formArray.value.findIndex((id) => id === sizeId);
+
+    index !== -1
+      ? formArray.removeAt(index)
+      : formArray.push(new FormControl(sizeId));
+  }
 
   private getSpecialities = (specialists: UserSpeciality[]) => {
     const specialities = [];

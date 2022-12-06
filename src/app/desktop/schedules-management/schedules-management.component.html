@@ -115,7 +115,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-3">
+              <div class="col-4">
                 <div class="form-check form-check-inline">
                   <input
                     class="form-check-input"
@@ -129,8 +129,22 @@
                   </label>
                 </div>
               </div>
+              <div class="col-4" *ngFor="let size of sizes">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input border"
+                    type="checkbox"
+                    [id]="'size_' + size.id"
+                    [value]="size.id"
+                    (change)="insertOrDeleteSize(size.id)"
+                  />
+                  <label class="form-check-label" for="size_{{ size.id }}">
+                    {{ size.name }}
+                  </label>
+                </div>
+              </div>
 
-              <div class="col-3" *ngFor="let day of weekDays">
+              <!-- <div class="col-3" *ngFor="let day of weekDays">
                 <div
                   class="form-check form-check-inline"
                   formGroupName="week_days"
@@ -146,7 +160,7 @@
                     {{ day.name }}
                   </label>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="col-6 d-flex justify-content-center align-items-end">
