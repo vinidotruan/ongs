@@ -47,6 +47,11 @@ export class AuthService {
     return this.apiService.post(request);
   };
 
+  public clearLocalStorage = (): void => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('currentUser');
+  };
+
   public setCurrentUser = (user: User) => {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUser = user;

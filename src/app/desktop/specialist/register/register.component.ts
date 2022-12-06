@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Ong } from '@models/ong';
 import { AuthService } from '@shared/services/auth.service';
 import { OngService } from '@shared/services/ong.service';
-import { SchedulesService } from '@shared/services/schedules.service';
 import { SpecialitiesService } from '@shared/services/specialities.service';
 import { User } from '@shared/services/user';
 
