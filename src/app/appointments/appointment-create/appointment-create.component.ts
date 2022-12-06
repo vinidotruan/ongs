@@ -103,19 +103,26 @@ export class AppointmentCreateComponent implements OnInit {
   };
 
   public submit = (): void => {
-    this.form.patchValue({ type_scheduling_id: 1, description: 'dasdasd' });
+    this.form.patchValue({ type_scheduling_id: 1, description: 'nada' });
     this.scheduleService.makeScheduling(this.form.getRawValue()).subscribe({
       next: () => {
         this.modalService
           .open(AlertSuccessComponent, { backdrop: false })
           .closed.subscribe({
-            next: () => this.router.navigate(['/home']),
+            next: () => this.router.navigate(['/mobile/home']),
             error: (error) => console.log(error),
           });
       },
       error: (error) => alert(error),
     });
   };
+
+  public hasOngSelected = (): boolean => this.form.get('ong_id')?.value;
+
+  public hasSpecialitySelected = (): boolean =>
+    this.form.get('speciality_id')?.value;
+
+  public hasPetSelected = (): boolean => this.form.get('pet_id')?.value;
 
   private getSpecialities = (): void => {
     this.specialitiesService.getAll().subscribe({

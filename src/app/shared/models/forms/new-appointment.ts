@@ -9,5 +9,6 @@ export class NewAppointmentForm implements ReactiveFormInterface {
       type_scheduling_id: new FormControl(null, Validators.required),
       ong_id: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
+      speciality_id: new FormControl(null, Validators.required),
     });
 }
