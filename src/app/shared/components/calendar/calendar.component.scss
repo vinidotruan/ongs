@@ -34,10 +34,17 @@
 
       .ngb-dp-day {
         color: white;
+        transition: 0.3s;
         &:not(.disabled) {
           &:not(.hidden) {
-            background-color: $primary;
+            border: 1px solid $primary;
             border-radius: 15px;
+            color: $primary;
+          }
+          &[tabindex="0"],
+          &:hover {
+            background-color: $primary;
+            color: $white;
           }
         }
 

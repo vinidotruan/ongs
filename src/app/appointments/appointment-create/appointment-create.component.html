@@ -1,6 +1,6 @@
 <div class="d-flex flex-column justify-content-between wrapper">
   <app-header></app-header>
-  <div class="content text-white rounded-top py-5">
+  <div class="text-white rounded-top py-5 bg-primary">
     <form [formGroup]="form">
       <div class="wrapper-step">
         <h2 class="mx-2 my-2 text-center">O que você está procurando?</h2>
@@ -13,10 +13,10 @@
               (click)="specialitySelected(speciality.id)"
             >
               <div
-                class="speciality-thumb d-flex flex-column justify-content-center align-items-center rounded"
+                class="speciality-thumb d-flex flex-column justify-content-center align-items-center rounded bg-green"
               >
                 <span class="material-symbols-outlined">
-                  medical_services
+                  {{ speciality.icon }}
                 </span>
                 <span class="text-center">
                   <b> {{ speciality.name }}</b>

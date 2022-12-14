@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SignUpForm } from '@models/forms/signup';
 import { AuthService } from '@shared/services/auth.service';
-import { IbgeService } from '@shared/services/ibge.service';
+import { OngService } from '@shared/services/ong.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,21 +16,24 @@ export class SignUpComponent implements OnInit {
   public cities: any[] = [];
 
   constructor(
-    private ibgeService: IbgeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private ongService: OngService,
+    private deviceService: DeviceDetectorService
   ) {
-    this.form = new SignUpForm().form();
+    this.form = new SignUpForm().form(false);
   }
 
   ngOnInit(): void {
     this.getStates();
     this.listenFormChange();
-    this.form.patchValue({ type_user_id: 1 });
+
+    const type_user_id = this.deviceService.isDesktop() ? 1 : 2;
+    this.form.patchValue({ type_user_id });
   }
 
   public getCities = (uf: string) =>
-    this.ibgeService.getCities(uf).subscribe({
-      next: (response) => (this.cities = response),
+    this.ongService.getCities(uf).subscribe({
+      next: (response) => (this.cities = response.data.cities),
       error: (error) => console.log(error),
     });
 
@@ -41,8 +45,8 @@ export class SignUpComponent implements OnInit {
   };
 
   private getStates = () =>
-    this.ibgeService.getStates().subscribe({
-      next: (response) => (this.states = response),
+    this.ongService.getStates().subscribe({
+      next: (response) => (this.states = response.data),
       error: (error) => alert(error),
     });
 

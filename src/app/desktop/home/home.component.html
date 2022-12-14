@@ -24,7 +24,9 @@
                 <h5
                   class="fw-bold bg-primary text-white rounded d-flex flex-column justify-content-between"
                 >
-                  <span>{{ specialistFiltered.schedules[0].date }}</span>
+                  <span>{{
+                    specialistFiltered.schedules[0].date | date : "dd/MM/yyyy"
+                  }}</span>
                   <span>
                     {{ specialistFiltered.user.name }}
                   </span>

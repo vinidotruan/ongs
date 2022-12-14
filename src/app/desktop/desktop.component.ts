@@ -15,6 +15,7 @@ export class DesktopComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.authService.currentUser);
     const ongId = this.authService.currentUser.ongs[0].id;
     this.ongService.getOng(ongId).subscribe({
       next: ({ data }: { data: Ong }) => {

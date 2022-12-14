@@ -15,6 +15,7 @@ export class User extends BaseModel {
   public schedules?: AvailableDate[];
   public specialities?: Speciality[];
   public ongs?: Ong[];
+  public ong?: Ong;
 
   public isSpecialist = (): boolean => {
     return this.type_user_id === 1;
@@ -34,6 +35,7 @@ export class User extends BaseModel {
     input.ongs = input.ongs
       ? input.ongs.map((ong) => new Ong().deserialize(ong))
       : [];
+    input.ong = input.ong ? new Ong().deserialize(input.ong) : {};
 
     input.specialities = input.specialities
       ? input.specialities.map((speciality) =>

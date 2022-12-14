@@ -23,5 +23,9 @@ export class SignUpForm implements ReactiveFormInterface {
       street: new FormControl(fillForm(fill), Validators.required),
       number: new FormControl(fillForm(fill), Validators.required),
       cep: new FormControl(fillForm(fill)),
+      ong: new FormGroup({
+        name: new FormControl(fillForm(fill)),
+        cnpj: new FormControl(fillForm(fill)),
+      }),
     });
 }

@@ -82,4 +82,20 @@ export class OngService {
 
     return this.apiService.get<UserSpeciality[][]>(request);
   };
+
+  public getStates = (): Observable<ApiResponse<any>> => {
+    const request = {
+      path: `/states`,
+    };
+
+    return this.apiService.get(request);
+  };
+
+  public getCities = (state: string): Observable<ApiResponse<any>> => {
+    const request = {
+      path: `/states/${state}`,
+    };
+
+    return this.apiService.get(request);
+  };
 }
