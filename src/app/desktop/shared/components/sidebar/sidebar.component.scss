@@ -1,7 +1,6 @@
 @import "variables";
 
 nav {
-  background-color: $primary;
   width: 300px;
   position: fixed;
   z-index: 9999999;
@@ -10,7 +9,6 @@ nav {
 
   * {
     // font-size: 3rem;
-    color: $white;
     text-decoration: none;
     .user-thumb {
       border-radius: 100%;

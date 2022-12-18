@@ -1,46 +1,49 @@
-<div
-  class="d-flex flex-column justify-content-between align-items-center wrapper container"
->
-  <div class="row mt-5">
-    <div class="col-12">
-      <app-logo></app-logo>
-    </div>
-  </div>
-  <div class="row bg-primary rounded-top h-50 w-100">
-    <h3 class="text-white align-self-center">Entrar</h3>
-    <ngb-alert type="danger" *ngIf="error">
-      {{ error.message }}
-    </ngb-alert>
-
-    <div class="col-12">
-      <form [formGroup]="form" class="d-flex flex-column align-items-center">
-        <div class="mb-3 w-100">
-          <label for="email" class="form-label text-white">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            formControlName="email"
-            aria-describedby="emailHelp"
-          />
-        </div>
-        <div class="mb-3 w-100">
-          <label for="password" class="form-label text-white">Senha</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            formControlName="password"
-            aria-describedby="passwordHelp"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary w-75" (click)="login()">
-          Entrar
-        </button>
-        <span>
-          <a routerLink="/signup">Cadastrar</a>
-        </span>
-      </form>
+<div class="container mt-5">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-xl-6">
+      <mat-card [formGroup]="form">
+        <mat-card-header>
+          <mat-card-title> Entrar</mat-card-title>
+          <mat-card-subtitle>
+            Entre no sistema para continuar.
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content
+          class="justify-content-center align-items-center w-100"
+        >
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Escreva seu email</mat-label>
+            <input
+              name="login-email"
+              matInput
+              placeholder="pat@example.com"
+              formControlName="email"
+              autocomplete="login-email"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Digite sua senha</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" required />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <span class="material-symbols-outlined">
+                {{ hide ? "visibility_off" : "visibility" }}
+              </span>
+            </button>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="login()">
+            Entrar
+          </button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>

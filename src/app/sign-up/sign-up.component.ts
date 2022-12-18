@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { SignUpForm } from '@models/forms/signup';
 import { AuthService } from '@shared/services/auth.service';
 import { OngService } from '@shared/services/ong.service';
-import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,8 +16,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private ongService: OngService,
-    private deviceService: DeviceDetectorService
+    private ongService: OngService
   ) {
     this.form = new SignUpForm().form(false);
   }
@@ -27,7 +25,7 @@ export class SignUpComponent implements OnInit {
     this.getStates();
     this.listenFormChange();
 
-    const type_user_id = this.deviceService.isDesktop() ? 1 : 2;
+    const type_user_id = 1;
     this.form.patchValue({ type_user_id });
   }
 

@@ -13,12 +13,10 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { HomeComponent } from './home/home.component';
 import { AppointmentCreateComponent } from './appointments/appointment-create/appointment-create.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
 import { ErrorInterceptor } from '@shared/interceptors/error.interceptor';
-import { CalendarComponent } from './shared/components/calendar/calendar.component';
 import { BottomBarComponent } from './shared/components/bottom-bar/bottom-bar.component';
 import { PetsListComponent } from './pets/pets-list/pets-list.component';
 import { PetCardComponent } from './shared/components/pet-card/pet-card.component';
@@ -30,6 +28,16 @@ import { AlertSuccessComponent } from './shared/components/modals/alert-success/
 import { SchedulingCardComponent } from './shared/components/scheduling-card/scheduling-card.component';
 import { DesktopModule } from './desktop/desktop.module';
 import { SharedModule } from '@shared/shared.module';
+
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import {
+  MatFormFieldModule,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 registerLocaleData(localePt, 'pt');
 
@@ -62,12 +70,21 @@ registerLocaleData(localePt, 'pt');
     FormsModule,
     ReactiveFormsModule,
     NgHttpLoaderModule.forRoot(),
-    NgbModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline' },
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,20 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CalendarComponent } from './components/calendar/calendar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OngService } from './services/ong.service';
+import { ErrorComponent } from './dialogs/error/error.component';
 
 @NgModule({
-  declarations: [CalendarComponent],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbModule,
+  declarations: [
+    ErrorComponent
   ],
-  exports: [CalendarComponent],
+  imports: [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule],
+  exports: [],
 })
 export class SharedModule {}

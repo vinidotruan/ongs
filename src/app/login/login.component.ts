@@ -8,7 +8,6 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '@shared/services/auth.service';
 import { User } from '@shared/services/user';
-import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +17,12 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class LoginComponent implements OnInit {
   public form: FormGroup;
   public error?: any;
+  public hide = true;
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private deviceService: DeviceDetectorService
+    private router: Router
   ) {
     this.form = this.initForm();
   }
@@ -37,9 +37,7 @@ export class LoginComponent implements OnInit {
           new User().deserialize(response.data.user)
         );
 
-        const url = this.deviceService.isDesktop()
-          ? ['/desktop/home']
-          : ['/mobile/home'];
+        const url = ['/mobile/home'];
         this.router.navigate(url);
       },
       error: (error) => (this.error = error),

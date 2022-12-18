@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@shared/services/auth.service';
 import { NavigationService } from '@shared/services/navigation.service';
-import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-bottom-bar',
@@ -19,8 +18,7 @@ export class BottomBarComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    public navigationService: NavigationService,
-    private deviceService: DeviceDetectorService
+    public navigationService: NavigationService
   ) {}
 
   ngOnInit(): void {}
@@ -28,7 +26,6 @@ export class BottomBarComponent implements OnInit {
   public show = (): boolean =>
     this.authService.isLogged() &&
     this.navigationService.currentUrl !== undefined &&
-    this.deviceService.isMobile() &&
     !this.denyListUrls.some((url) =>
       this.navigationService.currentUrl.includes(url)
     );

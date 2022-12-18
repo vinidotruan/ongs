@@ -6,8 +6,6 @@ import { NewAppointmentForm } from '@models/forms/new-appointment';
 import { Ong } from '@models/ong';
 import { Pet } from '@models/pet';
 import { Speciality } from '@models/speciality';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AlertSuccessComponent } from '@shared/components/modals/alert-success/alert-success.component';
 import { allMonthsObject } from '@shared/helpers/calendar-helper';
 import { AuthService } from '@shared/services/auth.service';
 import { PetsService } from '@shared/services/pets.service';
@@ -35,7 +33,6 @@ export class AppointmentCreateComponent implements OnInit {
     private authService: AuthService,
     private scheduleService: SchedulesService,
     private petsService: PetsService,
-    private modalService: NgbModal,
     private router: Router
   ) {
     this.form = new NewAppointmentForm().form();
@@ -113,12 +110,7 @@ export class AppointmentCreateComponent implements OnInit {
     this.form.patchValue({ type_scheduling_id: 1 });
     this.scheduleService.makeScheduling(this.form.getRawValue()).subscribe({
       next: () => {
-        this.modalService
-          .open(AlertSuccessComponent, { backdrop: false })
-          .closed.subscribe({
-            next: () => this.router.navigate(['/mobile/home']),
-            error: (error) => console.log(error),
-          });
+        this.router.navigate(['/mobile/home']);
       },
       error: (error) => alert(error),
     });

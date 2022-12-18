@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-alert-success',
@@ -9,9 +8,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class AlertSuccessComponent implements OnInit {
   @Input() message: string = 'Parabéns deu tudo certo!';
 
-  constructor(private activeModal: NgbActiveModal) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
-  public close = () => this.activeModal.close();
+  public close = () => {};
 }
